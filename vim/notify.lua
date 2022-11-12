@@ -1,0 +1,28 @@
+-- local notify = require("notify")
+--
+-- local os = vim.loop.os_uname().sysname
+--
+-- local plugin = "OS Detection"
+--
+-- local icon
+--
+-- if os == "Linux" then
+-- 	icon = ""
+-- elseif os == "macunix" then
+-- 	icon = ""
+-- elseif os == "Windows" then
+-- 	icon = ""
+-- elseif os == "bsd" then
+-- 	icon = ""
+-- end
+--
+-- notify("Now OS Detecting...", "info", {
+-- 	title = plugin,
+-- 	timeout = 1000,
+-- 	on_close = function()
+-- 		notify({ "OS Detected!", "Your OS is ...", os .. "!!", icon }, "info", {
+-- 			title = plugin,
+-- 			timeout = 2000,
+-- 		})
+-- 	end,
+-- })
