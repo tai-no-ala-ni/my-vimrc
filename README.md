@@ -77,6 +77,12 @@ vim
 
 :seven: :tada: **Happy Editing!** :confetti_ball:
 
+:eight: (Optional) you can add skk dictionary
+
+```bash
+curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JISYO.L
+```
+
 ### :apple: The things you need to do ( for Mac Users ) :bulb:
 
 ### :heavy_plus_sign: The things you need to do ( for Windows Users ) :bulb:
