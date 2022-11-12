@@ -2,7 +2,7 @@
 
 ## First of all
 
-*If anything is unclear or strange, please write to isuue.*
+*If anything is unclear or strange, please write to [isuue](https://github.com/tai-no-ala-ni/my-vimrc/issues/new/choose).*
 
 ## How To Start
 
