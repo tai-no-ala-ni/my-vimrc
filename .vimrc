@@ -13,6 +13,7 @@ Plug 'Shougo/ddc-omni' " omnifunc completion for ddc
 Plug 'Shougo/ddc-ui-native' " native ui for ddc
 " Plug 'matsui54/ddc-dictionary' " dictionary complete (for ddc)
 Plug 'vim-skk/skkeleton' " skk (japanese input method for vim)
+Plug 'skanehira/denops-translate.vim' " translate
 endif
 if executable('fzf')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
@@ -38,10 +39,10 @@ Plug 'rcarriga/nvim-notify' " notify
 Plug 'kyazdani42/nvim-web-devicons' " icon
 Plug 'nvim-tree/nvim-tree.lua' " file tree
 Plug 'romgrk/barbar.nvim' " tabline
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
-Plug 'rcarriga/nvim-notify' " notify
-Plug 'MunifTanjim/nui.nvim' " ui
-Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
+"Plug 'rcarriga/nvim-notify' " notify
+"Plug 'MunifTanjim/nui.nvim' " ui
+"Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
 else
 " for vim
 Plug 'liuchengxu/vim-which-key' " which-key
