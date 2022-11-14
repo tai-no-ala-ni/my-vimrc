@@ -38,6 +38,10 @@ Plug 'rcarriga/nvim-notify' " notify
 Plug 'kyazdani42/nvim-web-devicons' " icon
 Plug 'nvim-tree/nvim-tree.lua' " file tree
 Plug 'romgrk/barbar.nvim' " tabline
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
+Plug 'rcarriga/nvim-notify' " notify
+Plug 'MunifTanjim/nui.nvim' " ui
+Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
 else
 " for vim
 Plug 'liuchengxu/vim-which-key' " which-key
