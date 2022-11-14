@@ -161,3 +161,7 @@ curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JI
 - https://github.com/rbong/vim-flog (show git log)
 - https://github.com/jparise/vim-graphql (graphql filetype,sytax highlighting,indentation)
 - https://github.com/iamcco/markdown-preview.nvim (super cool markdown previewer)
+- https://github.com/nvim-treesitter/nvim-treesitter (maybe syntax highlighting?)
+- https://github.com/rcarriga/nvim-notify (rich notify)
+- https://github.com/MunifTanjim/nui.nvim (rich ui)
+- https://github.com/folke/noice.nvim (change view of messages,cmdline,popupmenu)
