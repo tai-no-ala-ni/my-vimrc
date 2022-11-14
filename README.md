@@ -80,10 +80,61 @@ vim
 :eight: (Optional) you can add skk dictionary
 
 ```bash
+mkdir -p ~/.skk
 curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JISYO.L
 ```
 
 ### :apple: The things you need to do ( for Mac Users ) :bulb:
+
+:one: :beginner: build nightly Neovim :email:
+
+```bash
+git clone git@github.com:neovim/neovim.git --branch=nightly --depth=1
+make && sudo make install
+```
+
+:two: :beginner: or install NeoVim using brew :email:
+
+```bash
+brew install neovim --pre
+```
+
+:three: :ticket: install vim-plug (vim plugin manager) :helicopter:
+
+```bash
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+:four: :bullettrain_front: install fzf,deno,luarocks,nodejs,npm,curl :nut_and_bolt:
+
+```bash
+brew install fzf luarocks nodejs npm curl
+curl -fsSL https://deno.land/x/install/install.sh | sh
+```
+
+:five: :airplane: Make symlinks for .vimrc :bangbang:
+
+```bash
+ln -snfv ~/mydotfiles/.vimrc ~/.vimrc
+ln -snfv ~/mydotfiles/.vimrc ~/.config/nvim/init.vim
+```
+
+:six: :rocket: Install packages for vim :skull:
+
+```bash
+vim
+:PlugInstall
+```
+
+:seven: :tada: **Happy Editing!** :confetti_ball:
+
+:eight: (Optional) you can add skk dictionary
+
+```bash
+mkdir -p ~/.skk
+curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JISYO.L
+```
 
 ### :heavy_plus_sign: The things you need to do ( for Windows Users ) :bulb:
 
