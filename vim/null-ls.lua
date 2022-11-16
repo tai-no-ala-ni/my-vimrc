@@ -99,6 +99,10 @@ local shellcheck_diagnotics_source = diagnostics.shellcheck.with({
 	filetypes = { "sh", "zsh", "bash" },
 })
 
+local clang_format_formatting_source = formatting.clang_format.with({
+	filetypes = { "c", "cpp", "objc", "objcpp" },
+})
+
 local sources = {
 	eslint_formatting_source,
 	prettier_formatting_source,
@@ -109,6 +113,7 @@ local sources = {
 	--textlint_diagnotics_source,
 	shellharden_formatting_source,
 	shellcheck_diagnotics_source,
+	clang_format_formatting_source,
 }
 
 null_ls.setup({
