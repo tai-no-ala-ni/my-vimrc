@@ -179,7 +179,7 @@ runtime ftplugin/man.vim
 " clipboard
 "
 """"""""""""""""""""""""""""""""""
-set clipboard=unnamedplus
+xnoremap Y "+y
 
 """"""""""""""""""""""""""""""""""
 "
