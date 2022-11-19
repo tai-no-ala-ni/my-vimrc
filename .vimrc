@@ -33,16 +33,17 @@ Plug 'AlessandroYorba/Alduin' " Alduin color
 Plug 'lewis6991/gitsigns.nvim' " gitsigns
 Plug 'norcalli/nvim-colorizer.lua' " colorizer
 Plug 'nvim-lua/plenary.nvim' " lua function
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } " telescope
+Plug 'nvim-telescope/telescope.nvim', { 'on' : [] ,'tag': '0.1.0' } " telescope
 Plug 'folke/which-key.nvim' " which-key
 Plug 'rcarriga/nvim-notify' " notify
 Plug 'kyazdani42/nvim-web-devicons' " icon
-Plug 'nvim-tree/nvim-tree.lua' " file tree
+Plug 'nvim-tree/nvim-tree.lua',{'on': [] } " file tree
 Plug 'romgrk/barbar.nvim' " tabline
 "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
 "Plug 'rcarriga/nvim-notify' " notify
 "Plug 'MunifTanjim/nui.nvim' " ui
 "Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' , 'on': 'MarkdownPreview' }
 else
 " for vim
 Plug 'liuchengxu/vim-which-key' " which-key
@@ -88,7 +89,6 @@ Plug 'junegunn/goyo.vim'	" goyo
 Plug 'tpope/vim-fugitive' " git wrapper
 Plug 'rbong/vim-flog' " git log graph
 Plug 'jparise/vim-graphql' " graphql
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' }
 call plug#end()
 
 """"""""""""""""""""""""""""""""""
@@ -280,3 +280,52 @@ endif
 if has('nvim')
 set signcolumn=yes:1
 endif
+
+"""""""""""""""""""""""""""""""""
+"
+" do not load unnecessary options
+"
+"""""""""""""""""""""""""""""""""
+let g:did_install_default_menus = 1
+let g:did_install_syntax_menu   = 1
+let g:did_indent_on             = 1
+let g:did_load_filetypes        = 1
+let g:did_load_ftplugin         = 1
+let g:loaded_2html_plugin       = 1
+let g:loaded_gzip               = 1
+let g:loaded_man                = 1
+let g:loaded_matchit            = 1
+let g:loaded_matchparen         = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_remote_plugins     = 1
+let g:loaded_shada_plugin       = 1
+let g:loaded_spellfile_plugin   = 1
+let g:loaded_tarPlugin          = 1
+let g:loaded_tutor_mode_plugin  = 1
+let g:loaded_zipPlugin          = 1
+let g:skip_loading_mswin        = 1
+
+"""""""""""""""""""""""""""""""""
+"
+" lazy load
+"
+"""""""""""""""""""""""""""""""""
+function! s:LazyLoadPlugs(timer) abort
+  " save current position by marking Z because plug#load reloads current buffer
+  normal! mZ
+  call plug#load(
+        \   'nvim-tree.lua',
+  		\	'telescope.nvim'
+        \ )
+  normal! g`Z
+  delmarks Z
+
+  if has('nvim')
+  for f in split(glob('~/mydotfiles/vim/after/*.lua'), '\n')
+  	exe 'luafile' f
+  endfor
+  endif
+
+endfunction
+
+call timer_start(1000, function("s:LazyLoadPlugs"))
