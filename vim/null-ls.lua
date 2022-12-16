@@ -103,7 +103,7 @@ local clang_format_formatting_source = formatting.clang_format.with({
 	filetypes = { "c", "cpp", "objc", "objcpp" },
 })
 
-local python_diagnostics_source = formatting.pylint.with({
+local python_diagnostics_source = diagnostics.pylint.with({
 	filetypes = { "python" },
 })
 
