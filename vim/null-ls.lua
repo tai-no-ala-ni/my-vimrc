@@ -103,6 +103,14 @@ local clang_format_formatting_source = formatting.clang_format.with({
 	filetypes = { "c", "cpp", "objc", "objcpp" },
 })
 
+local python_diagnostics_source = formatting.pylint.with({
+	filetypes = { "python" },
+})
+
+local python_formatting_source = formatting.black.with({
+	filetypes = { "python" },
+})
+
 local sources = {
 	eslint_formatting_source,
 	prettier_formatting_source,
@@ -114,6 +122,8 @@ local sources = {
 	shellharden_formatting_source,
 	shellcheck_diagnotics_source,
 	clang_format_formatting_source,
+	python_diagnostics_source,
+	python_formatting_source,
 }
 
 null_ls.setup({
@@ -137,6 +147,9 @@ null_ls.setup({
 		"vint",
 		"yaml-language-server",
 		"gopls",
+		"python-lsp-server",
+		"pylint",
+		"black",
 	},
 	debug = true,
 	on_attach = on_attach,
