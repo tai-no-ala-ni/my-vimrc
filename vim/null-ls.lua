@@ -118,7 +118,7 @@ local sources = {
 	eslint_diagnostics_source,
 	latex_diagnostics_source,
 	latex_formatting_source,
-	--textlint_diagnotics_source,
+	textlint_diagnotics_source,
 	shellharden_formatting_source,
 	shellcheck_diagnotics_source,
 	clang_format_formatting_source,
