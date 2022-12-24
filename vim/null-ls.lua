@@ -90,6 +90,7 @@ local latex_formatting_source = formatting.latexindent.with({
 })
 local textlint_diagnotics_source = diagnostics.textlint.with({
 	filetypes = { "tex" },
+	prefer_local = "node_modules/.bin",
 })
 
 local shellharden_formatting_source = formatting.shellharden.with({
