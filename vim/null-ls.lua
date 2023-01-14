@@ -91,6 +91,11 @@ local latex_formatting_source = formatting.latexindent.with({
 local textlint_diagnotics_source = diagnostics.textlint.with({
 	prefer_local = "node_modules/.bin",
 	filetypes = { "tex" },
+	prefer_local = "node_modules/.bin",
+})
+local textlint_formatting_source = formatting.textlint.with({
+	filetypes = { "tex" },
+	prefer_local = "node_modules/.bin",
 })
 
 local shellharden_formatting_source = formatting.shellharden.with({
@@ -120,6 +125,7 @@ local sources = {
 	latex_diagnostics_source,
 	latex_formatting_source,
 	textlint_diagnotics_source,
+	--textlint_formatting_source,
 	shellharden_formatting_source,
 	shellcheck_diagnotics_source,
 	clang_format_formatting_source,
