@@ -89,6 +89,7 @@ local latex_formatting_source = formatting.latexindent.with({
 	filetypes = { "tex" },
 })
 local textlint_diagnotics_source = diagnostics.textlint.with({
+	prefer_local = "node_modules/.bin",
 	filetypes = { "tex" },
 })
 
