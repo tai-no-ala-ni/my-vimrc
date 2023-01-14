@@ -311,6 +311,7 @@ let g:skip_loading_mswin        = 1
 "
 """""""""""""""""""""""""""""""""
 function! s:LazyLoadPlugs(timer) abort
+if has('nvim')
   " save current position by marking Z because plug#load reloads current buffer
   normal! mZ
   call plug#load(
@@ -319,12 +320,13 @@ function! s:LazyLoadPlugs(timer) abort
         \ )
   normal! g`Z
   delmarks Z
+endif
 
-  if has('nvim')
+if has('nvim')
   for f in split(glob('~/mydotfiles/vim/after/*.lua'), '\n')
   	exe 'luafile' f
   endfor
-  endif
+endif
 
 endfunction
 
