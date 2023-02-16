@@ -117,6 +117,18 @@ local python_formatting_source = formatting.black.with({
 	filetypes = { "python" },
 })
 
+local golang_formatting_source = formatting.gofumpt.with({
+	filetypes = { "go" },
+})
+
+local golang_imports_formatting_source = formatting.goimports.with({
+	filetypes = { "go" },
+})
+
+local golangci_lint_diagnostics_source = diagnostics.golangci_lint.with({
+	filetypes = { "go" },
+})
+
 local sources = {
 	eslint_formatting_source,
 	prettier_formatting_source,
@@ -131,6 +143,9 @@ local sources = {
 	clang_format_formatting_source,
 	python_diagnostics_source,
 	python_formatting_source,
+	golang_formatting_source,
+	golang_imports_formatting_source,
+	golangci_lint_diagnostics_source,
 }
 
 null_ls.setup({
@@ -157,6 +172,8 @@ null_ls.setup({
 		"python-lsp-server",
 		"pylint",
 		"black",
+		"gofumpt",
+		"goimports",
 	},
 	debug = true,
 	on_attach = on_attach,
