@@ -151,7 +151,9 @@ set wildmenu
 """"""""""""""""""""""""""""""""""
 set encoding=utf-8
 set fileformats=unix,dos,mac
+if !exists('g:vscode')
 set ambiwidth=double
+endif
 """"""""""""""""""""""""""""""""""
 "
 " noswap 
