@@ -44,7 +44,7 @@ Plug 'romgrk/barbar.nvim' " tabline
 "Plug 'MunifTanjim/nui.nvim' " ui
 "Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' , 'on': 'MarkdownPreview' }
-Plug 'eandrju/cellular-automaton.nvim' " relax animation
+"Plug 'eandrju/cellular-automaton.nvim' " relax animation
 else
 " for vim
 Plug 'liuchengxu/vim-which-key' " which-key
