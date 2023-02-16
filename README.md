@@ -213,3 +213,4 @@ curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JI
 - https://github.com/jparise/vim-graphql (graphql filetype,sytax highlighting,indentation)
 - https://github.com/iamcco/markdown-preview.nvim (super cool markdown previewer)
 - https://github.com/skanehira/denops-translate.vim (translate)
+- https://github.com/evanleck/vim-svelte (svelte syntax highlighting)

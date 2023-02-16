@@ -54,6 +54,7 @@ Plug 'shun/ddc-vim-lsp' " vim-lsp for ddc.vim
 Plug 'lervag/vimtex' " vim tex
 endif
 " vim/nvim
+Plug 'evanleck/vim-svelte', {'for': 'svelte'} " svelte syntax highlight
 Plug 'vim-jp/vimdoc-ja' " vim help in japanese
 Plug 'matsui54/denops-signature_help' " shows signature help from lsp server
 Plug 'matsui54/denops-popup-preview.vim' " denops popup preview
