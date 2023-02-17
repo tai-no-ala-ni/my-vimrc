@@ -11,7 +11,8 @@ Plug 'Shougo/ddc-sorter_rank' " matched rank order sorter for ddc.vim
 Plug 'Shougo/ddc-converter_remove_overlap' " no double complete
 Plug 'Shougo/ddc-omni' " omnifunc completion for ddc
 Plug 'Shougo/ddc-ui-native' " native ui for ddc
-" Plug 'matsui54/ddc-dictionary' " dictionary complete (for ddc)
+Plug 'tani/ddc-fuzzy' " fuzzy matching filters for ddc.vim
+Plug 'matsui54/ddc-dictionary' " dictionary complete (for ddc)
 Plug 'vim-skk/skkeleton' " skk (japanese input method for vim)
 Plug 'skanehira/denops-translate.vim' " translate
 endif

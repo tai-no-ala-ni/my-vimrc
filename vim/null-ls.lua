@@ -31,6 +31,7 @@ local prettier_formatting_source = formatting.prettierd.with({
 		"graphql",
 		"vue",
 		"svelte",
+		"markdown",
 	},
 	timeout = 20000,
 	prefer_local = "node_modules/.bin",
@@ -71,6 +72,7 @@ local eslint_diagnostics_source = diagnostics.eslint.with({
 		"svelte",
 	},
 	prefer_local = "node_modules/.bin",
+	timeout = 20000,
 	diagnostics_postprocess = function(diagnostic)
 		for _, d in ipairs(diagnostic) do
 			vim.notify(d.message, vim.log.levels.ERROR)
@@ -87,7 +89,6 @@ local latex_formatting_source = formatting.latexindent.with({
 	filetypes = { "tex" },
 })
 local textlint_diagnotics_source = diagnostics.textlint.with({
-	prefer_local = "node_modules/.bin",
 	filetypes = { "tex" },
 	prefer_local = "node_modules/.bin",
 })

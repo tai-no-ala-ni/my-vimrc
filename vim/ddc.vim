@@ -36,33 +36,34 @@ endif
 
 " sourceOptions
 if has('nvim')
-call ddc#custom#patch_global('sourceOptions', {
-    \ 'around': {'mark': 'A'},
-    \ 'file': {
-    \   'mark': 'F',
-    \   'isVolatile': v:true,
-    \   'forceCompletionPattern': '\S/\S*',
+call ddc#custom#patch_global('sourceOptions', #{
+    \ around: #{mark: 'A'},
+    \ file: #{
+    \   mark: 'F',
+    \   isVolatile: v:true,
+    \   forceCompletionPattern: '\S/\S*',
     \ },
-    \ 'neosnippet': {
-	    \ 'mark': 'neosnippet',
-	    \ 'dup': v:true,
+    \ neosnippet: #{
+	    \ mark: 'neosnippet',
+	    \ dup: v:true,
     \ },
-    \ 'nvim-lsp': {
-	    \ 'mark': 'nvim-lsp',
-	    \ 'forceCompletionPattern': '\\.|:|->',
+    \ nvim-lsp: #{
+	    \ mark: 'nvim-lsp',
+	    \ forceCompletionPattern: '\\.|:|->',
     \ },
-    \ 'necovim': {'mark': 'necovim'},
-	\ 'skkeleton': {
-	\   'mark': 'skkeleton',
-	\   'matchers': ['skkeleton'],
-	\   'minAutoCompleteLength': 2,
-	\   'isVolatile': v:true,
+    \ necovim: #{mark: 'necovim'},
+	\ skkeleton: #{
+	\   mark: 'skkeleton',
+	\   matchers: ['skkeleton'],
+	\   minAutoCompleteLength: 2,
+	\   isVolatile: v:true,
 	\ },
-    \ '_': {
-    \   'matchers': ['matcher_head'],
-    \   'sorters': ['sorter_rank']},
-    \ 	'converters': ['converter_remove_overlap'],
-    \ })
+    \ _: #{
+    \   matchers: ['matcher_fuzzy'],
+    \   sorters: ['sorter_fuzzy'],
+    \ 	converters: ['converter_fuzzy'],
+    \ }
+	\ })
 else
 
 call ddc#custom#patch_global('sourceOptions', {
@@ -79,7 +80,7 @@ call ddc#custom#patch_global('sourceOptions', {
     \ 'vim-lsp': {
 	    \ 'mark': 'vim-lsp',
 	    \ 'forceCompletionPattern': '\\.|:|->',
-		\ 'minAutoCompleteLength': 0,
+		\ 'minAutoCompleteLength': 1,
     \ },
     \ 'necovim': {'mark': 'necovim'},
     \ '_': {
@@ -98,7 +99,7 @@ call ddc#custom#patch_global('sourceParams', {
 endif
 
 " completionMenu
-call ddc#custom#patch_global('completionMenu', 'pum.vim')
+" call ddc#custom#patch_global('completionMenu', 'pum.vim')
 call ddc#custom#patch_global('autoCompleteEvents', [
     \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
     \ 'CmdlineEnter', 'CmdlineChanged',
