@@ -57,7 +57,7 @@ local eslint_formatting_source = formatting.eslint_d.with({
 
 local lua_source = formatting.stylua.with({ filetypes = { "lua" } })
 
-local eslint_diagnostics_source = diagnostics.eslint.with({
+local eslint_diagnostics_source = diagnostics.eslint_d.with({
 	filetypes = {
 		"javascript",
 		"javascriptreact",

@@ -44,7 +44,7 @@ Plug 'romgrk/barbar.nvim' " tabline
 "Plug 'rcarriga/nvim-notify' " notify
 "Plug 'MunifTanjim/nui.nvim' " ui
 "Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' , 'on': 'MarkdownPreview' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' , 'for': 'markdown' }
 "Plug 'eandrju/cellular-automaton.nvim' " relax animation
 else
 " for vim
