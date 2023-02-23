@@ -1,98 +1,204 @@
-" plugin Install
-call plug#begin()
-Plug 'Shougo/pum.vim' " popup window
+" Ward off unexpected things that your distro might have made, as
+" well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+
+" Set Dein base path (required)
+let s:dein_base = expand('~/.local/share/dein')
+
+" Set Dein source path (required)
+let s:dein_src = expand('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
+
+" Set Dein runtime path (required)
+execute 'set runtimepath+=' . s:dein_src
+
+" Call Dein initialization (required)
+call dein#begin(s:dein_base)
+
+call dein#add(s:dein_src)
+
+call dein#add('wsdjeg/dein-ui.vim')
+call dein#add('Shougo/pum.vim') " popup window
 if executable('deno')
-Plug 'vim-denops/denops.vim' " deno
-Plug 'Shougo/ddc.vim' " ddc auto complete
-Plug 'Shougo/ddc-around' " around cursor completion for ddc.vim
-Plug 'LumaKernel/ddc-file' " filename complete
-Plug 'Shougo/ddc-matcher_head' " heading matcher for ddc.vim
-Plug 'Shougo/ddc-sorter_rank' " matched rank order sorter for ddc.vim
-Plug 'Shougo/ddc-converter_remove_overlap' " no double complete
-Plug 'Shougo/ddc-omni' " omnifunc completion for ddc
-Plug 'Shougo/ddc-ui-native' " native ui for ddc
-Plug 'tani/ddc-fuzzy' " fuzzy matching filters for ddc.vim
-Plug 'matsui54/ddc-dictionary' " dictionary complete (for ddc)
-Plug 'vim-skk/skkeleton' " skk (japanese input method for vim)
-Plug 'skanehira/denops-translate.vim' " translate
+call dein#add('vim-denops/denops.vim') " deno
+call dein#add('Shougo/ddc.vim',#{
+\ lazy: 1,
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/ddc.lua'
+\}) " ddc auto complete
+call dein#add('Shougo/ddc-around',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " around cursor completion for ddc.vim
+call dein#add('LumaKernel/ddc-file',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " filename complete
+call dein#add('Shougo/ddc-matcher_head',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " heading matcher for ddc.vim
+call dein#add('Shougo/ddc-sorter_rank',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " matched rank order sorter for ddc.vim
+call dein#add('Shougo/ddc-converter_remove_overlap',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " no double complete
+call dein#add('Shougo/ddc-omni',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " omnifunc completion for ddc
+call dein#add('Shougo/ddc-ui-native',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " native ui for ddc
+call dein#add('tani/ddc-fuzzy',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " fuzzy matching filters for ddc.vim
+call dein#add('matsui54/ddc-dictionary',#{
+\ lazy: 1,
+\ depends: ['Shougo/ddc.vim'],
+\}) " dictionary complete (for ddc)
+call dein#add('vim-skk/skkeleton') " skk (japanese input method for vim)
+call dein#add('skanehira/denops-translate.vim') " translate
 endif
 if executable('fzf')
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
-Plug 'junegunn/fzf.vim' " fzf
+"call dein#add('junegunn/fzf')
+call dein#add('junegunn/fzf', #{
+\ build: 'fzf#install()'
+\ })  " fzf
+call dein#add('junegunn/fzf.vim') " fzf
 endif
 if has('nvim')
 "for nvim
-Plug 'neovim/nvim-lspconfig' " language server protocol
-Plug 'williamboman/mason.nvim' " lsp setting
-Plug 'williamboman/mason-lspconfig.nvim' " lsp setting
-Plug 'jose-elias-alvarez/null-ls.nvim' " linter and formatter
-Plug 'Shougo/ddc-nvim-lsp' " lsp for nvim
-Plug 'lukas-reineke/virt-column.nvim' " set virtual text color?
-Plug 'folke/lsp-colors.nvim' " lsp colors
-Plug 'tai-no-ala-ni/molomolokaikai' " molomolokaikai colorscheme
-Plug 'AlessandroYorba/Alduin' " Alduin color
-Plug 'lewis6991/gitsigns.nvim' " gitsigns
-Plug 'norcalli/nvim-colorizer.lua' " colorizer
-Plug 'nvim-lua/plenary.nvim' " lua function
-Plug 'nvim-telescope/telescope.nvim', { 'on' : [] ,'tag': '0.1.0' } " telescope
-Plug 'folke/which-key.nvim' " which-key
-Plug 'rcarriga/nvim-notify' " notify
-Plug 'kyazdani42/nvim-web-devicons' " icon
-Plug 'nvim-tree/nvim-tree.lua',{'on': [] } " file tree
-Plug 'romgrk/barbar.nvim' " tabline
-"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
-"Plug 'rcarriga/nvim-notify' " notify
-"Plug 'MunifTanjim/nui.nvim' " ui
-"Plug 'folke/noice.nvim' " change view of messages,cmdline,popupmenu
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' , 'for': 'markdown' }
-"Plug 'eandrju/cellular-automaton.nvim' " relax animation
+call dein#add('williamboman/mason.nvim',#{
+\ lazy: 1,
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/mason.lua'
+\}) " lsp setting
+call dein#add('neovim/nvim-lspconfig', #{
+\lazy: 1,
+\depends: ['williamboman/mason.nvim'],
+\}) " language server protocol
+call dein#add('williamboman/mason-lspconfig.nvim',#{
+\ lazy: 1,
+\ depends: ['williamboman/mason.nvim'],
+\}) " lsp setting
+call dein#add('jose-elias-alvarez/null-ls.nvim',#{
+\ lazy: 1,
+\ depends: ['williamboman/mason.nvim'],
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua'
+\}) " linter and formatter
+call dein#add('Shougo/ddc-nvim-lsp',#{
+\ lazy: 1,
+\ depends: ['williamboman/mason.nvim','Shougo/ddc.vim'],
+\}) " lsp for nvim
+call dein#add('folke/lsp-colors.nvim',#{
+\ lazy: 1,
+\ depends: ['williamboman/mason.nvim'],
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/lsp-colors.lua'
+\}) " lsp colors
+call dein#add('lukas-reineke/virt-column.nvim') " set virtual text color?
+call dein#add('tai-no-ala-ni/molomolokaikai') " molomolokaikai colorscheme
+call dein#add('AlessandroYorba/Alduin') " Alduin color
+call dein#add('lewis6991/gitsigns.nvim') " gitsigns
+call dein#add('norcalli/nvim-colorizer.lua') " colorizer
+call dein#add('nvim-lua/plenary.nvim') " lua function
+call dein#add('nvim-telescope/telescope.nvim',#{
+\lazy: 1,
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua'
+\}) " telescope
+call dein#add('folke/which-key.nvim') " which-key
+call dein#add('rcarriga/nvim-notify') " notify
+call dein#add('kyazdani42/nvim-web-devicons') " icon
+"call dein#add('nvim-tree/nvim-tree.lua')
+call dein#add('nvim-tree/nvim-tree.lua',#{
+\lazy: 1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-tree.lua'
+\}) " file tree
+call dein#add('romgrk/barbar.nvim') " tabline
+"call dein#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate')} " treesitter
+"call dein#add('rcarriga/nvim-notify') " notify
+"call dein#add('MunifTanjim/nui.nvim') " ui
+"call dein#add('folke/noice.nvim') " change view of messages,cmdline,popupmenu
+"call dein#add('iamcco/markdown-preview.nvim') 
+call dein#add('iamcco/markdown-preview.nvim', #{
+\ build: 'sh -c "cd app && npm install"' ,
+\ on_ft: 'markdown',
+\ })
+"call dein#add('eandrju/cellular-automaton.nvim') " relax animation
 else
 " for vim
-Plug 'liuchengxu/vim-which-key' " which-key
-Plug 'prabirshrestha/vim-lsp' " language server protocol
-Plug 'mattn/vim-lsp-settings' " lsp setting
-Plug 'shun/ddc-vim-lsp' " vim-lsp for ddc.vim
-Plug 'lervag/vimtex' " vim tex
+call dein#add('liuchengxu/vim-which-key') " which-key
+call dein#add('prabirshrestha/vim-lsp') " language server protocol
+call dein#add('mattn/vim-lsp-settings') " lsp setting
+call dein#add('shun/ddc-vim-lsp') " vim-lsp for ddc.vim
+call dein#add('lervag/vimtex') " vim tex
 endif
 " vim/nvim
-Plug 'evanleck/vim-svelte', {'for': 'svelte'} " svelte syntax highlight
-Plug 'vim-jp/vimdoc-ja' " vim help in japanese
-Plug 'matsui54/denops-signature_help' " shows signature help from lsp server
-Plug 'matsui54/denops-popup-preview.vim' " denops popup preview
-Plug 'Shougo/neco-vim' " Vim completion source
-Plug 'itchyny/lightline.vim' " good status line
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/vimproc.vim', {'do': 'make'} " async
-Plug 'mattn/emmet-vim' " html emmet
-Plug 'ekalinin/dockerfile.vim' " dockerfile syntax
-Plug 'github/copilot.vim' " copilot
-Plug 'wakatime/vim-wakatime' " wakatime
-Plug 'chrisbra/csv.vim' " csv
-Plug 'cohama/agit.vim' " agit
-Plug 'tyru/open-browser.vim' " open-browser
-Plug 'tyru/open-browser-github.vim' " open-browser-github
-Plug 'dhruvasagar/vim-table-mode' " write markdown table
-Plug 'rhysd/github-complete.vim' " github complete
-Plug 'mattn/webapi-vim' " webapi
-Plug 'mattn/vim-gist' " use gist from vim
-Plug 'ctrlpvim/ctrlp.vim' " selecter
-Plug 'KeitaNakamura/neodark.vim' " neodark
-Plug 'preservim/tagbar' " tagbar
-Plug 'jacquesbh/vim-showmarks' " show mark
-Plug 'jiangmiao/auto-pairs' " auto-pairs
-Plug 'tpope/vim-surround' " surround
-Plug 'kana/vim-textobj-user' " user defined textobj
-Plug 'osyo-manga/vim-textobj-blockwise' " cIw and <C-v>iw
-Plug 'thinca/vim-textobj-between' " textobj between word
-Plug 'kana/vim-operator-user' " user defined operator
-Plug 'kana/vim-operator-replace' " replace operator
-"Plug 'itchyny/calendar.vim'	" calendar
-Plug 'junegunn/goyo.vim'	" goyo
-Plug 'tpope/vim-fugitive' " git wrapper
-Plug 'rbong/vim-flog' " git log graph
-Plug 'jparise/vim-graphql' " graphql
-call plug#end()
+call dein#add('evanleck/vim-svelte') " svelte syntax highlight
+call dein#config('vim-svelte', #{
+\ on_ft: 'svelte'
+\ }) " svelte syntax highlight
+call dein#add('vim-jp/vimdoc-ja') " vim help in japanese
+call dein#add('matsui54/denops-signature_help') " shows signature help from lsp server
+call dein#add('matsui54/denops-popup-preview.vim') " denops popup preview
+call dein#add('Shougo/neco-vim') " Vim completion source
+call dein#add('itchyny/lightline.vim') " good status line
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/vimproc') " async
+call dein#config('vimproc', #{
+\ build: 'make'
+\ }) " async
+call dein#add('mattn/emmet-vim') " html emmet
+call dein#add('ekalinin/dockerfile.vim') " dockerfile syntax
+call dein#add('github/copilot.vim') " copilot
+call dein#add('wakatime/vim-wakatime') " wakatime
+call dein#add('chrisbra/csv.vim') " csv
+call dein#add('cohama/agit.vim') " agit
+call dein#add('tyru/open-browser.vim') " open-browser
+call dein#add('tyru/open-browser-github.vim') " open-browser-github
+call dein#add('dhruvasagar/vim-table-mode') " write markdown table
+"call dein#add('rhysd/github-complete.vim') " github complete
+call dein#add('mattn/webapi-vim') " webapi
+call dein#add('mattn/vim-gist') " use gist from vim
+call dein#add('ctrlpvim/ctrlp.vim') " selecter
+call dein#add('KeitaNakamura/neodark.vim') " neodark
+call dein#add('preservim/tagbar') " tagbar
+call dein#add('jacquesbh/vim-showmarks') " show mark
+call dein#add('jiangmiao/auto-pairs') " auto-pairs
+call dein#add('tpope/vim-surround') " surround
+call dein#add('kana/vim-textobj-user') " user defined textobj
+call dein#add('osyo-manga/vim-textobj-blockwise') " cIw and <C-v>iw
+call dein#add('thinca/vim-textobj-between') " textobj between word
+call dein#add('kana/vim-operator-user') " user defined operator
+call dein#add('kana/vim-operator-replace') " replace operator
+"call dein#add('itchyny/calendar.vim')	" calendar
+call dein#add('junegunn/goyo.vim')	" goyo
+call dein#add('tpope/vim-fugitive') " git wrapper
+call dein#add('rbong/vim-flog') " git log graph
+call dein#add('jparise/vim-graphql') " graphql
+" Finish Dein initialization (required)
+
+call dein#end()
+
+" auto upodate
+let g:dein#auto_update = 1
+
+if has('filetype')
+  filetype indent plugin on
+endif
+
+" Enable syntax highlighting
+if has('syntax')
+  syntax on
+endif
+
+" Uncomment if you want to install not-installed plugins on startup.
+"if dein#check_install()
+" call dein#install()
+"endif
 
 """"""""""""""""""""""""""""""""""
 "
@@ -315,24 +421,13 @@ let g:skip_loading_mswin        = 1
 " lazy load
 "
 """""""""""""""""""""""""""""""""
-function! s:LazyLoadPlugs(timer) abort
-if has('nvim')
-  " save current position by marking Z because plug#load reloads current buffer
-  normal! mZ
-  call plug#load(
-        \   'nvim-tree.lua',
-  		\	'telescope.nvim'
-        \ )
-  normal! g`Z
-  delmarks Z
-endif
-
-if has('nvim')
-  for f in split(glob('~/mydotfiles/vim/after/*.lua'), '\n')
-  	exe 'luafile' f
-  endfor
-endif
-
-endfunction
-
-call timer_start(1000, function("s:LazyLoadPlugs"))
+"function! s:LazyLoadPlugs(timer) abort
+"if has('nvim')
+"  for f in split(glob('~/mydotfiles/vim/after/*.lua'), '\n')
+"  	exe 'luafile' f
+"  endfor
+"endif
+"
+"endfunction
+"
+"call timer_start(1000, function("s:LazyLoadPlugs"))

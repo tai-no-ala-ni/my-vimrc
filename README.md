@@ -2,7 +2,7 @@
 
 ## First of all
 
-*If anything is unclear or strange, please write to [isuue](https://github.com/tai-no-ala-ni/my-vimrc/issues/new/choose).*
+_If anything is unclear or strange, please write to [isuue](https://github.com/tai-no-ala-ni/my-vimrc/issues/new/choose)._
 
 ## How To Start
 
@@ -41,16 +41,11 @@ sudo apt update -y
 sudo apt install -y vim
 ```
 
-:three: :ticket: install vim-plug (vim plugin manager) :helicopter:
+:three: :ticket: install dein.vim (Dark powered Vim/Neoim plugin manager) :helicopter:
 
 ```bash
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
-
-```bash
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh)"
+Please choose 2(local path)
 ```
 
 :four: :bullettrain_front: install fzf,deno,luarocks,nodejs,npm,curl :nut_and_bolt:
@@ -72,7 +67,7 @@ ln -snfv ~/mydotfiles/.vimrc ~/.config/nvim/init.vim
 
 ```bash
 vim
-:PlugInstall
+:call dein#install()
 ```
 
 :seven: :tada: **Happy Editing!** :confetti_ball:
@@ -99,11 +94,11 @@ make && sudo make install
 brew install neovim --pre
 ```
 
-:three: :ticket: install vim-plug (vim plugin manager) :helicopter:
+:three: :ticket: install dein.vim (Dark powered Vim/Neoim plugin manager) :helicopter:
 
 ```bash
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh)"
+Please choose 2(local path)
 ```
 
 :four: :bullettrain_front: install fzf,deno,luarocks,nodejs,npm,curl :nut_and_bolt:
@@ -124,7 +119,7 @@ ln -snfv ~/mydotfiles/.vimrc ~/.config/nvim/init.vim
 
 ```bash
 vim
-:PlugInstall
+:call dein#install()
 ```
 
 :seven: :tada: **Happy Editing!** :confetti_ball:
@@ -193,7 +188,6 @@ curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JI
 - https://github.com/tyru/open-browser.vim (open browser from vim)
 - https://github.com/tyru/open-browser-github.vim (open github page)
 - https://github.com/dhruvasagar/vim-table-mode (provides table utils)
-- https://github.com/rhysd/github-complete.vim (complete emoji,user name,repository name,issue number,link using github api)
 - https://github.com/mattn/webapi-vim (provides interface to web APIs)
 - https://github.com/mattn/vim-gist (make gist from vim)
 - https://github.com/ctrlpvim/ctrlp.vim (fuzzy file finder)
@@ -214,3 +208,8 @@ curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JI
 - https://github.com/iamcco/markdown-preview.nvim (super cool markdown previewer)
 - https://github.com/skanehira/denops-translate.vim (translate)
 - https://github.com/evanleck/vim-svelte (svelte syntax highlighting)
+- https://github.com/wsdjeg/dein-ui.vim (UI for dein.vim)
+
+### Plugins not used
+
+- https://github.com/rhysd/github-complete.vim (complete emoji,user name,repository name,issue number,link using github api)
