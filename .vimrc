@@ -22,7 +22,8 @@ if executable('deno')
 call dein#add('vim-denops/denops.vim') " deno
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/ddc.lua'
+\ hook_source: 'source ~/mydotfiles/vim/after/ddc.vim',
+\ on_event: 'VimEnter'
 \}) " ddc auto complete
 call dein#add('Shougo/ddc-around',#{
 \ lazy: 1,
@@ -74,7 +75,8 @@ if has('nvim')
 "for nvim
 call dein#add('williamboman/mason.nvim',#{
 \ lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/mason.lua'
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/mason.lua',
+\ on_event: 'InsertEnter'
 \}) " lsp setting
 call dein#add('neovim/nvim-lspconfig', #{
 \lazy: 1,
@@ -106,7 +108,8 @@ call dein#add('norcalli/nvim-colorizer.lua') " colorizer
 call dein#add('nvim-lua/plenary.nvim') " lua function
 call dein#add('nvim-telescope/telescope.nvim',#{
 \lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua'
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua',
+\ on_event: 'VimEnter'
 \}) " telescope
 call dein#add('folke/which-key.nvim') " which-key
 call dein#add('rcarriga/nvim-notify') " notify
@@ -114,7 +117,8 @@ call dein#add('kyazdani42/nvim-web-devicons') " icon
 "call dein#add('nvim-tree/nvim-tree.lua')
 call dein#add('nvim-tree/nvim-tree.lua',#{
 \lazy: 1,
-\hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-tree.lua'
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-tree.lua',
+\on_event: 'VimEnter'
 \}) " file tree
 call dein#add('romgrk/barbar.nvim') " tabline
 "call dein#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate')} " treesitter
@@ -182,6 +186,9 @@ call dein#add('jparise/vim-graphql') " graphql
 " Finish Dein initialization (required)
 
 call dein#end()
+
+" call hook source
+autocmd VimEnter * call dein#call_hook('post_source')
 
 " auto upodate
 let g:dein#auto_update = 1
