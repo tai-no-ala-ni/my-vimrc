@@ -27,47 +27,47 @@ call dein#add('Shougo/ddc.vim',#{
 \}) " ddc auto complete
 call dein#add('Shougo/ddc-around',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " around cursor completion for ddc.vim
 call dein#add('LumaKernel/ddc-file',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " filename complete
 call dein#add('Shougo/ddc-matcher_head',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " heading matcher for ddc.vim
 call dein#add('Shougo/ddc-sorter_rank',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " matched rank order sorter for ddc.vim
 call dein#add('Shougo/ddc-converter_remove_overlap',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " no double complete
 call dein#add('Shougo/ddc-omni',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " omnifunc completion for ddc
 call dein#add('Shougo/ddc-ui-native',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " native ui for ddc
 call dein#add('tani/ddc-fuzzy',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " fuzzy matching filters for ddc.vim
 call dein#add('matsui54/ddc-dictionary',#{
 \ lazy: 1,
-\ depends: ['Shougo/ddc.vim'],
+\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " dictionary complete (for ddc)
 call dein#add('vim-skk/skkeleton') " skk (japanese input method for vim)
@@ -89,28 +89,28 @@ call dein#add('williamboman/mason.nvim',#{
 \}) " lsp setting
 call dein#add('neovim/nvim-lspconfig', #{
 \lazy: 1,
-\depends: ['williamboman/mason.nvim'],
+\depends: ['mason.nvim'],
 \ on_event: 'VimEnter'
 \}) " language server protocol
 call dein#add('williamboman/mason-lspconfig.nvim',#{
 \ lazy: 1,
-\ depends: ['williamboman/mason.nvim'],
+\ depends: ['mason.nvim'],
 \ on_event: 'VimEnter'
 \}) " lsp setting
 call dein#add('jose-elias-alvarez/null-ls.nvim',#{
 \ lazy: 1,
-\ depends: ['williamboman/mason.nvim'],
+\ depends: ['mason.nvim'],
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua',
 \ on_event: 'VimEnter'
 \}) " linter and formatter
 call dein#add('Shougo/ddc-nvim-lsp',#{
 \ lazy: 1,
-\ depends: ['williamboman/mason.nvim','Shougo/ddc.vim'],
+\ depends: ['mason.nvim','ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " lsp for nvim
 call dein#add('folke/lsp-colors.nvim',#{
 \ lazy: 1,
-\ depends: ['williamboman/mason.nvim'],
+\ depends: ['mason.nvim'],
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/lsp-colors.lua',
 \ on_event: 'VimEnter'
 \}) " lsp colors
