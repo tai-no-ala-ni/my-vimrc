@@ -153,6 +153,7 @@ curl https://skk-dev.github.io/dict/SKK-JISYO.L.gz | gunzip -d - > ~/.skk/SKK-JI
 - https://github.com/williamboman/mason-lspconfig.nvim (easier setting tool for neovim lsp)
 - https://github.com/jose-elias-alvarez/null-ls.nvim (inject lsp formatting,diagnostics,code action,and more)
 - https://github.com/Shougo/ddc-nvim-lsp (ddc source for neovim lsp)
+- https://github.com/Shougo/ddc-source-nvim-lsp (ddc source for neovim lsp)
 - https://github.com/lukas-reineke/virt-column.nvim (Display a character as the colorcolumn.)
 - https://github.com/folke/lsp-colors.nvim (lsp diagnostics highlight group)
 - https://github.com/tai-no-ala-ni/molomolokaikai (my colorscheme forked from molokai)

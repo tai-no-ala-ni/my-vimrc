@@ -34,7 +34,7 @@ call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
 \ depends: ['denops.vim'],
-\ on_event: 'VimEnter'
+"\ on_event: 'VimEnter'
 \}) " ddc auto complete
 call dein#add('Shougo/ddc-around',#{
 \ lazy: 1,
@@ -81,12 +81,17 @@ call dein#add('matsui54/ddc-dictionary',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " dictionary complete (for ddc)
-call dein#add('vim-skk/skkeleton',#{
+call dein#add('Shougo/ddc-source-nvim-lsp',#{
 \ lazy: 1,
-\ depends: ['denops.vim'],
-"\ on_event: 'VimEnter',
-\ hook_post_source: 'source ~/mydotfiles/vim/after/skkeleton.vim'
-\}) " skk (japanese input method for vim)
+\ depends: ['ddc.vim'],
+\ on_event: 'VimEnter'
+\})
+"call dein#add('vim-skk/skkeleton',#{
+"\ lazy: 1,
+"\ depends: ['denops.vim'],
+""\ on_event: 'VimEnter',
+"\ hook_post_source: 'source ~/mydotfiles/vim/after/skkeleton.vim'
+"\}) " skk (japanese input method for vim)
 call dein#add('skanehira/denops-translate.vim',#{
 \ lazy: 1,
 \ depends: ['denops.vim'],
