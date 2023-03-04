@@ -124,6 +124,10 @@ local golangci_lint_diagnostics_source = diagnostics.golangci_lint.with({
 	filetypes = { "go" },
 })
 
+local vint_lint_diagnostics_source = diagnostics.vint.with({
+	filetypes = { "vim" },
+})
+
 local sources = {
 	eslint_formatting_source,
 	prettier_formatting_source,
@@ -141,6 +145,7 @@ local sources = {
 	golang_formatting_source,
 	golang_imports_formatting_source,
 	golangci_lint_diagnostics_source,
+	vint_lint_diagnostics_source,
 }
 
 null_ls.setup({

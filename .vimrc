@@ -16,13 +16,24 @@ call dein#begin(s:dein_base)
 
 call dein#add(s:dein_src)
 
-call dein#add('wsdjeg/dein-ui.vim')
-call dein#add('Shougo/pum.vim') " popup window
+call dein#add('Shougo/pum.vim', #{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " popup window
 if executable('deno')
-call dein#add('vim-denops/denops.vim') " deno
+call dein#add('vim-denops/denops.vim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/denops.vim'
+\}) " deno
+call dein#add('wsdjeg/dein-ui.vim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\})
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
-\ hook_source: 'source ~/mydotfiles/vim/after/ddc.vim',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
+\ depends: ['denops.vim'],
 \ on_event: 'VimEnter'
 \}) " ddc auto complete
 call dein#add('Shougo/ddc-around',#{
@@ -70,8 +81,18 @@ call dein#add('matsui54/ddc-dictionary',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " dictionary complete (for ddc)
-call dein#add('vim-skk/skkeleton') " skk (japanese input method for vim)
-call dein#add('skanehira/denops-translate.vim') " translate
+call dein#add('vim-skk/skkeleton',#{
+\ lazy: 1,
+\ depends: ['denops.vim'],
+"\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/skkeleton.vim'
+\}) " skk (japanese input method for vim)
+call dein#add('skanehira/denops-translate.vim',#{
+\ lazy: 1,
+\ depends: ['denops.vim'],
+"\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/denops-translate.vim'
+\}) " translate
 endif
 if executable('fzf')
 "call dein#add('junegunn/fzf')
@@ -90,7 +111,7 @@ call dein#add('williamboman/mason.nvim',#{
 call dein#add('neovim/nvim-lspconfig', #{
 \lazy: 1,
 \depends: ['mason.nvim'],
-\ on_event: 'VimEnter'
+\on_event: 'VimEnter'
 \}) " language server protocol
 call dein#add('williamboman/mason-lspconfig.nvim',#{
 \ lazy: 1,
@@ -106,7 +127,7 @@ call dein#add('jose-elias-alvarez/null-ls.nvim',#{
 call dein#add('Shougo/ddc-nvim-lsp',#{
 \ lazy: 1,
 \ depends: ['mason.nvim','ddc.vim'],
-\ on_event: 'VimEnter'
+"\ on_event: 'VimEnter'
 \}) " lsp for nvim
 call dein#add('folke/lsp-colors.nvim',#{
 \ lazy: 1,
@@ -154,13 +175,25 @@ call dein#add('shun/ddc-vim-lsp') " vim-lsp for ddc.vim
 call dein#add('lervag/vimtex') " vim tex
 endif
 " vim/nvim
-call dein#add('evanleck/vim-svelte') " svelte syntax highlight
-call dein#config('vim-svelte', #{
+call dein#add('evanleck/vim-svelte',#{
 \ on_ft: 'svelte'
-\ }) " svelte syntax highlight
+\}) " svelte syntax highlight
+"call dein#config('vim-svelte', #{
+"\ on_ft: 'svelte'
+"\ }) " svelte syntax highlight
 call dein#add('vim-jp/vimdoc-ja') " vim help in japanese
-call dein#add('matsui54/denops-signature_help') " shows signature help from lsp server
-call dein#add('matsui54/denops-popup-preview.vim') " denops popup preview
+call dein#add('matsui54/denops-signature_help',#{
+\ lazy: 1,
+\ depends: ['denops.vim'],
+"\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/denops-signature_help.vim'
+\}) " shows signature help from lsp server
+call dein#add('matsui54/denops-popup-preview.vim',#{
+\ lazy: 1,
+\ depends: ['denops.vim'],
+"\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/denops-popup-preview.vim'
+\}) " denops popup preview
 call dein#add('Shougo/neco-vim') " Vim completion source
 call dein#add('itchyny/lightline.vim') " good status line
 call dein#add('Shougo/neosnippet.vim')
@@ -169,7 +202,11 @@ call dein#add('Shougo/vimproc') " async
 call dein#config('vimproc', #{
 \ build: 'make'
 \ }) " async
-call dein#add('mattn/emmet-vim') " html emmet
+call dein#add('mattn/emmet-vim',#{
+\ lazy: 1,
+\ on_ft: ['html','css','javascript','typescript','javascriptreact','typescriptreact','svelte','vue'],
+\ hook_post_source: 'source ~/mydotfiles/vim/after/emmet.vim'
+\}) " html emmet
 call dein#add('ekalinin/dockerfile.vim') " dockerfile syntax
 call dein#add('github/copilot.vim') " copilot
 call dein#add('wakatime/vim-wakatime') " wakatime
@@ -187,9 +224,18 @@ call dein#add('preservim/tagbar') " tagbar
 call dein#add('jacquesbh/vim-showmarks') " show mark
 call dein#add('jiangmiao/auto-pairs') " auto-pairs
 call dein#add('tpope/vim-surround') " surround
-call dein#add('kana/vim-textobj-user') " user defined textobj
-call dein#add('osyo-manga/vim-textobj-blockwise') " cIw and <C-v>iw
-call dein#add('thinca/vim-textobj-between') " textobj between word
+call dein#add('kana/vim-textobj-user',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-textobj.vim'
+\}) " user defined textobj
+call dein#add('osyo-manga/vim-textobj-blockwise',#{
+\ lazy: 1,
+\ depends: ['vim-textobj-user'],
+\}) " cIw and <C-v>iw
+call dein#add('thinca/vim-textobj-between',#{
+\ lazy: 1,
+\ depends: ['vim-textobj-user'],
+\}) " textobj between word
 call dein#add('kana/vim-operator-user') " user defined operator
 call dein#add('kana/vim-operator-replace') " replace operator
 "call dein#add('itchyny/calendar.vim')	" calendar
@@ -452,3 +498,16 @@ let g:skip_loading_mswin        = 1
 "endfunction
 "
 "call timer_start(1000, function("s:LazyLoadPlugs"))
+
+"""""""""""""""""""""""""""""""""
+"
+" dein func
+"
+"""""""""""""""""""""""""""""""""
+" remove plugins that are disabled
+function! RemoveDisabledPlugins()
+	call map(dein#check_clean(), { _, val -> delete(val, 'rf') })
+	call dein#recache_runtimepath()
+	echo('Disabled plugins are removed.')
+endfunction
+nnoremap <silent> <leader>rdp :<C-u>call RemoveDisabledPlugins()<CR>
