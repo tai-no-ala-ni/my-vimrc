@@ -146,11 +146,13 @@ call dein#add('AlessandroYorba/Alduin') " Alduin color
 call dein#add('lewis6991/gitsigns.nvim') " gitsigns
 call dein#add('norcalli/nvim-colorizer.lua') " colorizer
 call dein#add('nvim-lua/plenary.nvim') " lua function
+if !has('win32') && !has('win64')
 call dein#add('nvim-telescope/telescope.nvim',#{
 \lazy: 1,
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua',
 \ on_event: 'VimEnter'
 \}) " telescope
+endif
 call dein#add('folke/which-key.nvim') " which-key
 call dein#add('rcarriga/nvim-notify') " notify
 call dein#add('kyazdani42/nvim-web-devicons') " icon
@@ -165,7 +167,7 @@ call dein#add('romgrk/barbar.nvim') " tabline
 "call dein#add('rcarriga/nvim-notify') " notify
 "call dein#add('MunifTanjim/nui.nvim') " ui
 "call dein#add('folke/noice.nvim') " change view of messages,cmdline,popupmenu
-"call dein#add('iamcco/markdown-preview.nvim') 
+"call dein#add('iamcco/markdown-preview.nvim')
 call dein#add('iamcco/markdown-preview.nvim', #{
 \ build: 'sh -c "cd app && npm install"' ,
 \ on_ft: 'markdown',
@@ -178,6 +180,7 @@ call dein#add('prabirshrestha/vim-lsp') " language server protocol
 call dein#add('mattn/vim-lsp-settings') " lsp setting
 call dein#add('shun/ddc-vim-lsp') " vim-lsp for ddc.vim
 call dein#add('lervag/vimtex') " vim tex
+call dein#add('akinsho/bufferline.nvim') " bufferline
 endif
 " vim/nvim
 call dein#add('evanleck/vim-svelte',#{
@@ -336,14 +339,14 @@ set ambiwidth=double
 endif
 """"""""""""""""""""""""""""""""""
 "
-" noswap 
+" noswap
 "
 """"""""""""""""""""""""""""""""""
 set noswapfile
 
 """"""""""""""""""""""""""""""""""
 "
-" terminal split in neovim 
+" terminal split in neovim
 "
 """"""""""""""""""""""""""""""""""
 if has('nvim')
@@ -392,8 +395,8 @@ augroup END
 " get group name of highlighting under cursor
 "
 """"""""""""""""""""""""""""""""""
-function! SynGroup()                                                            
-    let l:s = synID(line('.'), col('.'), 1)                                       
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
 nnoremap gm :call SynGroup()<CR>
