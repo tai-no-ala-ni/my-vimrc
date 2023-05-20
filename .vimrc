@@ -140,29 +140,47 @@ call dein#add('folke/lsp-colors.nvim',#{
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/lsp-colors.lua',
 \ on_event: 'VimEnter'
 \}) " lsp colors
-call dein#add('lukas-reineke/virt-column.nvim') " set virtual text color?
+call dein#add('lukas-reineke/virt-column.nvim',#{
+\ lazy: 1,
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/virt-column.lua'
+\}) " set virtual text color?
 call dein#add('tai-no-ala-ni/molomolokaikai') " molomolokaikai colorscheme
 call dein#add('AlessandroYorba/Alduin') " Alduin color
-call dein#add('lewis6991/gitsigns.nvim') " gitsigns
+call dein#add('lewis6991/gitsigns.nvim',#{
+\lazy:1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/gitsigns.lua'
+\}) " gitsigns
 call dein#add('norcalli/nvim-colorizer.lua') " colorizer
-call dein#add('nvim-lua/plenary.nvim') " lua function
+call dein#add('nvim-lua/plenary.nvim',#{
+\lazy: 1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/plenary.lua'
+\}) " lua function
 if !has('win32') && !has('win64')
 call dein#add('nvim-telescope/telescope.nvim',#{
 \lazy: 1,
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua',
-\ on_event: 'VimEnter'
+\depends: ['plenary.nvim']
 \}) " telescope
 endif
-call dein#add('folke/which-key.nvim') " which-key
+call dein#add('folke/which-key.nvim',#{
+\lazy: 1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua'
+\}) " which-key
 call dein#add('rcarriga/nvim-notify') " notify
-call dein#add('kyazdani42/nvim-web-devicons') " icon
+call dein#add('kyazdani42/nvim-web-devicons',#{
+\lazy: 1
+\}) " icon
 "call dein#add('nvim-tree/nvim-tree.lua')
 call dein#add('nvim-tree/nvim-tree.lua',#{
 \lazy: 1,
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-tree.lua',
-\on_event: 'VimEnter'
+\ depends: ['nvim-web-devicons','gitsigns'],
 \}) " file tree
-call dein#add('romgrk/barbar.nvim') " tabline
+call dein#add('romgrk/barbar.nvim', #{
+\lazy :1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/barbar.lua',
+\on_event: 'VimEnter'
+\}) " tabline
 "call dein#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate')} " treesitter
 "call dein#add('rcarriga/nvim-notify') " notify
 "call dein#add('MunifTanjim/nui.nvim') " ui
@@ -175,9 +193,21 @@ call dein#add('iamcco/markdown-preview.nvim', #{
 "call dein#add('eandrju/cellular-automaton.nvim') " relax animation
 else
 " for vim
-call dein#add('liuchengxu/vim-which-key') " which-key
-call dein#add('prabirshrestha/vim-lsp') " language server protocol
-call dein#add('mattn/vim-lsp-settings') " lsp setting
+call dein#add('liuchengxu/vim-which-key',#{
+\ lazy: 1,
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua',
+\ on_event: 'VimEnter'
+\}) " which-key
+call dein#add('prabirshrestha/vim-lsp',#{
+\ lazy: 1,
+\ hook_post_source: 'luafile ~/mydotfiles/vim/after/vim-lsp.lua',
+\ on_event: 'VimEnter'
+\}) " language server protocol
+call dein#add('mattn/vim-lsp-settings',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ depends: ['vim-lsp']
+\}) " lsp setting
 call dein#add('shun/ddc-vim-lsp') " vim-lsp for ddc.vim
 call dein#add('lervag/vimtex') " vim tex
 call dein#add('akinsho/bufferline.nvim') " bufferline
@@ -189,7 +219,11 @@ call dein#add('evanleck/vim-svelte',#{
 "call dein#config('vim-svelte', #{
 "\ on_ft: 'svelte'
 "\ }) " svelte syntax highlight
-call dein#add('vim-jp/vimdoc-ja') " vim help in japanese
+call dein#add('vim-jp/vimdoc-ja',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vimdoc-ja.vim',
+\ on_event: 'VimEnter'
+\}) " vim help in japanese
 call dein#add('matsui54/denops-signature_help',#{
 \ lazy: 1,
 \ depends: ['denops.vim'],
@@ -202,10 +236,24 @@ call dein#add('matsui54/denops-popup-preview.vim',#{
 "\ on_event: 'VimEnter',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/denops-popup-preview.vim'
 \}) " denops popup preview
-call dein#add('Shougo/neco-vim') " Vim completion source
-call dein#add('itchyny/lightline.vim') " good status line
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neco-vim',#{
+\ lazy: 1,
+\on_ft: 'vim',
+\ on_event: 'VimEnter'
+\}) " Vim completion source
+call dein#add('itchyny/lightline.vim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " good status line
+call dein#add('Shougo/neosnippet.vim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/neosnippet.vim'
+\})
+call dein#add('Shougo/neosnippet-snippets',#{
+\ lazy: 1,
+\dapends: ['neosnippet.vim'],
+\})
 call dein#add('Shougo/vimproc') " async
 call dein#config('vimproc', #{
 \ build: 'make'
@@ -215,26 +263,77 @@ call dein#add('mattn/emmet-vim',#{
 \ on_ft: ['html','css','javascript','typescript','javascriptreact','typescriptreact','svelte','vue'],
 \ hook_post_source: 'source ~/mydotfiles/vim/after/emmet.vim'
 \}) " html emmet
-call dein#add('ekalinin/dockerfile.vim') " dockerfile syntax
-call dein#add('github/copilot.vim') " copilot
-call dein#add('wakatime/vim-wakatime') " wakatime
-call dein#add('chrisbra/csv.vim') " csv
-call dein#add('cohama/agit.vim') " agit
-call dein#add('tyru/open-browser.vim') " open-browser
-call dein#add('tyru/open-browser-github.vim') " open-browser-github
-call dein#add('dhruvasagar/vim-table-mode') " write markdown table
+call dein#add('ekalinin/dockerfile.vim',#{
+\ lazy: 1,
+\on_ft: 'Dockerfile',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/docker.vim'
+\}) " dockerfile syntax
+call dein#add('github/copilot.vim',#{
+\ lazy: 1,
+"\ on_event: 'VimEnter'
+\ hook_post_source: 'source ~/mydotfiles/vim/after/copilot.vim'
+\}) " copilot
+call dein#add('wakatime/vim-wakatime',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " wakatime
+call dein#add('chrisbra/csv.vim',#{
+\ lazy: 1,
+\ on_ft: 'csv',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/csv.vim'
+\}) " csv
+call dein#add('cohama/agit.vim',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/git.vim'
+\}) " agit
+call dein#add('tyru/open-browser.vim',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/open-browser.vim'
+\}) " open-browser
+call dein#add('tyru/open-browser-github.vim',#{
+\ lazy: 1,
+\ depends: ['open-browser.vim']
+\}) " open-browser-github
+call dein#add('dhruvasagar/vim-table-mode',#{
+\ lazy: 1,
+\ on_ft: 'markdown',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-table-mode.vim'
+\}) " write markdown table
 "call dein#add('rhysd/github-complete.vim') " github complete
 call dein#add('mattn/webapi-vim') " webapi
-call dein#add('mattn/vim-gist') " use gist from vim
-call dein#add('ctrlpvim/ctrlp.vim') " selecter
+call dein#add('mattn/vim-gist',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-gist.vim',
+\ on_event: 'VimEnter'
+\}) " use gist from vim
+call dein#add('ctrlpvim/ctrlp.vim',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/ctrlp.vim',
+\ on_event: 'VimEnter'
+\}) " selecter
 call dein#add('KeitaNakamura/neodark.vim') " neodark
-call dein#add('preservim/tagbar') " tagbar
-call dein#add('jacquesbh/vim-showmarks') " show mark
-call dein#add('jiangmiao/auto-pairs') " auto-pairs
-call dein#add('tpope/vim-surround') " surround
+call dein#add('preservim/tagbar',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/tagbar.vim',
+\on_event: 'VimEnter'
+\}) " tagbar
+call dein#add('jacquesbh/vim-showmarks',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-showmarks.vim',
+\on_event: 'VimEnter'
+\}) " show mark
+call dein#add('jiangmiao/auto-pairs',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/auto-pairs.vim',
+\}) " auto-pairs
+call dein#add('tpope/vim-surround',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-surround.vim',
+\on_event: 'VimEnter'
+\}) " surround
 call dein#add('kana/vim-textobj-user',#{
 \ lazy: 1,
-\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-textobj.vim'
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-textobj.vim',
 \}) " user defined textobj
 call dein#add('osyo-manga/vim-textobj-blockwise',#{
 \ lazy: 1,
@@ -244,10 +343,20 @@ call dein#add('thinca/vim-textobj-between',#{
 \ lazy: 1,
 \ depends: ['vim-textobj-user'],
 \}) " textobj between word
-call dein#add('kana/vim-operator-user') " user defined operator
-call dein#add('kana/vim-operator-replace') " replace operator
+call dein#add('kana/vim-operator-user',#{
+\ lazy: 1,
+\on_event: 'VimEnter'
+\}) " user defined operator
+call dein#add('kana/vim-operator-replace',#{
+\ lazy: 1,
+\on_event: 'VimEnter'
+\}) " replace operator
 "call dein#add('itchyny/calendar.vim')	" calendar
-call dein#add('junegunn/goyo.vim')	" goyo
+call dein#add('junegunn/goyo.vim',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/goyo.vim',
+\on_event: 'VimEnter'
+\})	" goyo
 call dein#add('tpope/vim-fugitive') " git wrapper
 call dein#add('rbong/vim-flog') " git log graph
 call dein#add('jparise/vim-graphql') " graphql
