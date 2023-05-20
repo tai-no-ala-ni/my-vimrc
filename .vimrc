@@ -144,13 +144,23 @@ call dein#add('lukas-reineke/virt-column.nvim',#{
 \ lazy: 1,
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/virt-column.lua'
 \}) " set virtual text color?
-call dein#add('tai-no-ala-ni/molomolokaikai') " molomolokaikai colorscheme
-call dein#add('AlessandroYorba/Alduin') " Alduin color
+call dein#add('tai-no-ala-ni/molomolokaikai',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " molomolokaikai colorscheme
+call dein#add('AlessandroYorba/Alduin',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " Alduin color
 call dein#add('lewis6991/gitsigns.nvim',#{
 \lazy:1,
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/gitsigns.lua'
 \}) " gitsigns
-call dein#add('norcalli/nvim-colorizer.lua') " colorizer
+call dein#add('norcalli/nvim-colorizer.lua',#{
+\lazy: 1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-colorizer.lua',
+\ on_event: 'VimEnter'
+\}) " colorizer
 call dein#add('nvim-lua/plenary.nvim',#{
 \lazy: 1,
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/plenary.lua'
