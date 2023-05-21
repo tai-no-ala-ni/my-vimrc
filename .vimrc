@@ -33,7 +33,7 @@ call dein#add('wsdjeg/dein-ui.vim',#{
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim'],
+\ depends: ['denops.vim','neosnippet-snippets'],
 "\ on_event: 'VimEnter'
 \}) " ddc auto complete
 call dein#add('Shougo/ddc-around',#{
@@ -146,7 +146,9 @@ call dein#add('lukas-reineke/virt-column.nvim',#{
 \}) " set virtual text color?
 call dein#add('tai-no-ala-ni/molomolokaikai',#{
 \ lazy: 1,
+\ hook_source: 'source ~/mydotfiles/vim/after/color-scheme.vim',
 \ on_event: 'VimEnter'
+"\ depends: ['Alduin','neodark']
 \}) " molomolokaikai colorscheme
 call dein#add('AlessandroYorba/Alduin',#{
 \ lazy: 1,
@@ -154,21 +156,23 @@ call dein#add('AlessandroYorba/Alduin',#{
 \}) " Alduin color
 call dein#add('lewis6991/gitsigns.nvim',#{
 \lazy:1,
-\hook_post_source: 'luafile ~/mydotfiles/vim/after/gitsigns.lua'
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/gitsigns.lua',
+\on_event : 'VimEnter'
 \}) " gitsigns
 call dein#add('norcalli/nvim-colorizer.lua',#{
 \lazy: 1,
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-colorizer.lua',
-\ on_event: 'VimEnter'
+\on_event: 'VimEnter'
 \}) " colorizer
 call dein#add('nvim-lua/plenary.nvim',#{
 \lazy: 1,
-\hook_post_source: 'luafile ~/mydotfiles/vim/after/plenary.lua'
+\hook_post_source: 'source ~/mydotfiles/vim/after/plenary.vim',
+\ on_event: 'VimEnter'
 \}) " lua function
 if !has('win32') && !has('win64')
 call dein#add('nvim-telescope/telescope.nvim',#{
 \lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua',
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/telescope.lua',
 \depends: ['plenary.nvim']
 \}) " telescope
 endif
@@ -176,9 +180,14 @@ call dein#add('folke/which-key.nvim',#{
 \lazy: 1,
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua'
 \}) " which-key
-call dein#add('rcarriga/nvim-notify') " notify
+call dein#add('rcarriga/nvim-notify',#{
+\lazy: 1,
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/nvim-notify.lua',
+\ on_event: 'VimEnter'
+\}) " notify
 call dein#add('kyazdani42/nvim-web-devicons',#{
-\lazy: 1
+\lazy: 1,
+\on_event: 'VimEnter'
 \}) " icon
 "call dein#add('nvim-tree/nvim-tree.lua')
 call dein#add('nvim-tree/nvim-tree.lua',#{
@@ -189,7 +198,7 @@ call dein#add('nvim-tree/nvim-tree.lua',#{
 call dein#add('romgrk/barbar.nvim', #{
 \lazy :1,
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/barbar.lua',
-\on_event: 'VimEnter'
+\depends: ['nvim-web-devicons','gitsigns']
 \}) " tabline
 "call dein#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate')} " treesitter
 "call dein#add('rcarriga/nvim-notify') " notify
@@ -218,7 +227,10 @@ call dein#add('mattn/vim-lsp-settings',#{
 \ on_event: 'VimEnter',
 \ depends: ['vim-lsp']
 \}) " lsp setting
-call dein#add('shun/ddc-vim-lsp') " vim-lsp for ddc.vim
+call dein#add('shun/ddc-vim-lsp'#{
+\ lazy: 1,
+\depends: ['vim-lsp']
+}) " vim-lsp for ddc.vim
 call dein#add('lervag/vimtex') " vim tex
 call dein#add('akinsho/bufferline.nvim') " bufferline
 endif
@@ -257,7 +269,7 @@ call dein#add('itchyny/lightline.vim',#{
 \}) " good status line
 call dein#add('Shougo/neosnippet.vim',#{
 \ lazy: 1,
-\ on_event: 'VimEnter',
+\ on_event: 'InsertEnter',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/neosnippet.vim'
 \})
 call dein#add('Shougo/neosnippet-snippets',#{
@@ -280,7 +292,7 @@ call dein#add('ekalinin/dockerfile.vim',#{
 \}) " dockerfile syntax
 call dein#add('github/copilot.vim',#{
 \ lazy: 1,
-"\ on_event: 'VimEnter'
+\ on_event: 'InsertEnter',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/copilot.vim'
 \}) " copilot
 call dein#add('wakatime/vim-wakatime',#{
@@ -289,16 +301,19 @@ call dein#add('wakatime/vim-wakatime',#{
 \}) " wakatime
 call dein#add('chrisbra/csv.vim',#{
 \ lazy: 1,
-\ on_ft: 'csv',
+"\ on_ft: 'csv',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/csv.vim'
 \}) " csv
 call dein#add('cohama/agit.vim',#{
 \ lazy: 1,
-\ hook_post_source: 'source ~/mydotfiles/vim/after/git.vim'
+"\ hook_post_source: 'source ~/mydotfiles/vim/after/git.vim',
+\ on_event: 'VimEnter'
 \}) " agit
 call dein#add('tyru/open-browser.vim',#{
 \ lazy: 1,
-\ hook_post_source: 'source ~/mydotfiles/vim/after/open-browser.vim'
+\ hook_post_source: 'source ~/mydotfiles/vim/after/open-browser.vim',
+"\ on_event: 'VimEnter'
+\ on_map: #{ n: '<C-o>' }
 \}) " open-browser
 call dein#add('tyru/open-browser-github.vim',#{
 \ lazy: 1,
@@ -319,9 +334,13 @@ call dein#add('mattn/vim-gist',#{
 call dein#add('ctrlpvim/ctrlp.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ctrlp.vim',
-\ on_event: 'VimEnter'
+"\ on_event: 'VimEnter'
+\ on_map: #{ n: '<C-p>' }
 \}) " selecter
-call dein#add('KeitaNakamura/neodark.vim') " neodark
+call dein#add('KeitaNakamura/neodark.vim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " neodark
 call dein#add('preservim/tagbar',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/tagbar.vim',
@@ -332,10 +351,11 @@ call dein#add('jacquesbh/vim-showmarks',#{
 \ hook_post_source: 'source ~/mydotfiles/vim/after/vim-showmarks.vim',
 \on_event: 'VimEnter'
 \}) " show mark
-call dein#add('jiangmiao/auto-pairs',#{
-\ lazy: 1,
-\ hook_post_source: 'source ~/mydotfiles/vim/after/auto-pairs.vim',
-\}) " auto-pairs
+call dein#add('jiangmiao/auto-pairs')",#{
+"\ lazy: 1,
+"\ hook_post_source: 'source ~/mydotfiles/vim/after/auto-pairs.vim',
+"\on_event: 'InsertEnter'
+"\}) " auto-pairs
 call dein#add('tpope/vim-surround',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/vim-surround.vim',
@@ -367,9 +387,17 @@ call dein#add('junegunn/goyo.vim',#{
 \ hook_post_source: 'source ~/mydotfiles/vim/after/goyo.vim',
 \on_event: 'VimEnter'
 \})	" goyo
-call dein#add('tpope/vim-fugitive') " git wrapper
+call dein#add('tpope/vim-fugitive',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/git.vim'
+\}) " git wrapper
 call dein#add('rbong/vim-flog') " git log graph
-call dein#add('jparise/vim-graphql') " graphql
+call dein#add('jparise/vim-graphql',#{
+\ lazy: 1,
+\ on_ft: 'graphql',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/graphql.vim'
+\}) " graphql
 " Finish Dein initialization (required)
 
 call dein#end()
@@ -552,6 +580,20 @@ endfunction
 
 """""""""""""""""""""""""""""""""
 "
+" colorscheme
+"
+"""""""""""""""""""""""""""""""""
+
+set termguicolors
+"if has('nvim')
+"  colorscheme molokai
+"elseif has('vim')
+"  colorscheme neodark
+"endif
+
+
+"""""""""""""""""""""""""""""""""
+"
 " source all file in vim/
 "
 """""""""""""""""""""""""""""""""
@@ -562,19 +604,6 @@ if has('nvim')
 for f in split(glob('~/mydotfiles/vim/*.lua'), '\n')
     exe 'luafile' f
 endfor
-endif
-
-"""""""""""""""""""""""""""""""""
-"
-" colorscheme
-"
-"""""""""""""""""""""""""""""""""
-
-set termguicolors
-if has('nvim')
-  colorscheme molokai
-elseif has('vim')
-  colorscheme neodark
 endif
 
 """""""""""""""""""""""""""""""""
