@@ -11,6 +11,8 @@ let s:dein_src = expand('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
 " Set Dein runtime path (required)
 execute 'set runtimepath+=' . s:dein_src
 
+let g:denops_disable_version_check = 0
+
 " Call Dein initialization (required)
 call dein#begin(s:dein_base)
 
@@ -219,7 +221,7 @@ call dein#add('liuchengxu/vim-which-key',#{
 \}) " which-key
 call dein#add('prabirshrestha/vim-lsp',#{
 \ lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/vim-lsp.lua',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-lsp.vim',
 \ on_event: 'VimEnter'
 \}) " language server protocol
 call dein#add('mattn/vim-lsp-settings',#{
