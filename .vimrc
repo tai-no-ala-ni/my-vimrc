@@ -35,7 +35,7 @@ call dein#add('wsdjeg/dein-ui.vim',#{
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim','neosnippet-snippets'],
+\ depends: ['denops.vim','neosnippet-snippets']
 "\ on_event: 'VimEnter'
 \}) " ddc auto complete
 call dein#add('Shougo/ddc-around',#{
@@ -216,7 +216,7 @@ else
 " for vim
 call dein#add('liuchengxu/vim-which-key',#{
 \ lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua',
+"\ hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua',
 \ on_event: 'VimEnter'
 \}) " which-key
 call dein#add('prabirshrestha/vim-lsp',#{
@@ -229,10 +229,10 @@ call dein#add('mattn/vim-lsp-settings',#{
 \ on_event: 'VimEnter',
 \ depends: ['vim-lsp']
 \}) " lsp setting
-call dein#add('shun/ddc-vim-lsp'#{
+call dein#add('shun/ddc-vim-lsp',#{
 \ lazy: 1,
 \depends: ['vim-lsp']
-}) " vim-lsp for ddc.vim
+\}) " vim-lsp for ddc.vim
 call dein#add('lervag/vimtex') " vim tex
 call dein#add('akinsho/bufferline.nvim') " bufferline
 endif
