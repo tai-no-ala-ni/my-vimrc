@@ -112,17 +112,18 @@ if has('nvim')
 "for nvim
 call dein#add('williamboman/mason.nvim',#{
 \ lazy: 1,
-\ hook_post_source: 'luafile ~/mydotfiles/vim/after/mason.lua',
+\ hook_source: 'luafile ~/mydotfiles/vim/after/mason.lua',
+\ depends: ['mason-lspconfig.nvim','nvim-lspconfig'],
 \ on_event: 'VimEnter'
 \}) " lsp setting
 call dein#add('neovim/nvim-lspconfig', #{
 \lazy: 1,
-\depends: ['mason.nvim'],
+"\ depends: ['mason.nvim'],
 \on_event: 'VimEnter'
 \}) " language server protocol
 call dein#add('williamboman/mason-lspconfig.nvim',#{
 \ lazy: 1,
-\ depends: ['mason.nvim'],
+"\ depends: ['mason.nvim'],
 \ on_event: 'VimEnter'
 \}) " lsp setting
 call dein#add('jose-elias-alvarez/null-ls.nvim',#{
@@ -180,7 +181,8 @@ call dein#add('nvim-telescope/telescope.nvim',#{
 endif
 call dein#add('folke/which-key.nvim',#{
 \lazy: 1,
-\hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua'
+\hook_post_source: 'luafile ~/mydotfiles/vim/after/which-key.lua',
+\on_event: 'VimEnter'
 \}) " which-key
 call dein#add('rcarriga/nvim-notify',#{
 \lazy: 1,
