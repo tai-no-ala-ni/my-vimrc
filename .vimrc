@@ -658,6 +658,14 @@ let g:skip_loading_mswin        = 1
 "endfunction
 "
 "call timer_start(1000, function("s:LazyLoadPlugs"))
+"""""""""""""""""""""""""""""""""
+"
+" nvim tex setting
+"
+"""""""""""""""""""""""""""""""""
+if has('nvim')
+	let g:tex_fast="cmprsSvV"
+endif
 
 """""""""""""""""""""""""""""""""
 "
