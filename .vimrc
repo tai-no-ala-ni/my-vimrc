@@ -126,7 +126,7 @@ call dein#add('williamboman/mason-lspconfig.nvim',#{
 "\ depends: ['mason.nvim'],
 \ on_event: 'VimEnter'
 \}) " lsp setting
-call dein#add('jose-elias-alvarez/null-ls.nvim',#{
+call dein#add('nvimtools/none-ls.nvim',#{
 \ lazy: 1,
 \ depends: ['mason.nvim'],
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua',
@@ -679,3 +679,4 @@ function! RemoveDisabledPlugins()
 	echo('Disabled plugins are removed.')
 endfunction
 nnoremap <silent> <leader>rdp :<C-u>call RemoveDisabledPlugins()<CR>
+
