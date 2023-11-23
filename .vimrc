@@ -88,6 +88,11 @@ call dein#add('Shougo/ddc-source-nvim-lsp',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \})
+call dein#add("tai-no-ala-ni/translate-with-gpt-denops",#{
+\ lazy: 1,
+\ on_event: 'BufRead',
+\ depends: ['denops.vim']
+\ }) " translate-with-gpt
 "call dein#add('vim-skk/skkeleton',#{
 "\ lazy: 1,
 "\ depends: ['denops.vim'],
@@ -402,11 +407,6 @@ call dein#add('jparise/vim-graphql',#{
 \ on_ft: 'graphql',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/graphql.vim'
 \}) " graphql
-call dein#add("tai-no-ala-ni/translate-with-gpt.lua",#{
-\ lazy: 1,
-\ on_event: 'VimEnter',
-\ hook_post_source: 'source ~/mydotfiles/vim/after/translate-with-gpt.vim'
-\ }) " translate-with-gpt
 " Finish Dein initialization (required)
 
 call dein#end()
