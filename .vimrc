@@ -17,7 +17,6 @@ let g:denops_disable_version_check = 0
 call dein#begin(s:dein_base)
 
 call dein#add(s:dein_src)
-
 call dein#add('Shougo/pum.vim', #{
 \ lazy: 1,
 \ on_event: 'VimEnter'
@@ -684,4 +683,19 @@ function! RemoveDisabledPlugins()
 	echo('Disabled plugins are removed.')
 endfunction
 nnoremap <silent> <leader>rdp :<C-u>call RemoveDisabledPlugins()<CR>
+
+"""""""""""""""""""""""""""""""""
+"
+" python host prog
+"
+"""""""""""""""""""""""""""""""""
+if &filetype ==# 'python'
+	if exists('$VIRTUAL_ENV')
+		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
+	else
+		let g:python3_host_prog = system('which python3')
+		let g:python_host_prog = system('which python')
+	endif
+endif
 
