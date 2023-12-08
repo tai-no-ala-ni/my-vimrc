@@ -144,11 +144,11 @@ call ddc#enable()
 " let g:python3_host_prog = '/usr/local/bin/python3.8'
 
 
-if exists("$VIRTUAL_ENV")
-  if !empty(glob("$VIRTUAL_ENV/bin/python3"))
-    let g:python3_host_prog = '~/.virtualenvs/forVim/bin/python'
-  else
-    let g:python_host_prog = '~/.virtualenvs/forVim/bin/python'
-  endif
-endif
-
+"if exists("$VIRTUAL_ENV")
+"  if !empty(glob("$VIRTUAL_ENV/bin/python3"))
+"    let g:python3_host_prog = '~/.virtualenvs/forVim/bin/python'
+"  else
+"    let g:python_host_prog = '~/.virtualenvs/forVim/bin/python'
+"  endif
+"endif
+"

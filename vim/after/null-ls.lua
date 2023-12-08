@@ -106,6 +106,22 @@ local clang_format_formatting_source = formatting.clang_format.with({
 
 local python_diagnostics_source = diagnostics.pylint.with({
 	filetypes = { "python" },
+	env = function(params)
+		local pythonpath = ""
+		if os.getenv("VIRTUAL_ENV") ~= nil then
+			local handle = io.popen("python3 --version | awk '{print $2}' | grep -Eo \"[0-9]{1,2}.[0-9]{1,2}\"")
+			local result = handle:read("*a")
+			local pythonversion = result.gsub(result, "\n", "")
+			handle:close()
+			pythonpath = os.getenv("VIRTUAL_ENV") .. "/lib/" .. "python" .. pythonversion .. "/site-packages"
+		else
+			local handle = io.popen("which python3")
+			local result = handle:read("*a")
+			pythonpath = result.gsub(result, "\n", "")
+			handle:close()
+		end
+		return { PYTHONPATH = pythonpath }
+	end,
 })
 
 local python_formatting_source = formatting.black.with({
