@@ -1,6 +1,19 @@
 
 """"""""""""""""""""""""""""""""""
 "
+" deoplete
+"
+""""""""""""""""""""""""""""""""""
+if exists('$VIRTUAL_ENV')
+	let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+	let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
+else
+	let g:python3_host_prog = system('which python3')
+	let g:python_host_prog = system('which python')
+endif
+
+""""""""""""""""""""""""""""""""""
+"
 " pum
 "
 """"""""""""""""""""""""""""""""""
@@ -18,6 +31,27 @@ endif
 
 """"""""""""""""""""""""""""""""""
 "
+" deoppet
+"
+""""""""""""""""""""""""""""""""""
+"if has('nvim')
+"call deoppet#initialize()
+"call deoppet#custom#option('snippets',
+"\ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+"\     { _, val -> { 'path': val } }))
+""call deoppet#custom#option('snippets',
+""\ map(globpath('~/mydotfiles', 'mysnip', 1, 1),
+""\     { _, val -> { 'path': val } }))
+"
+"imap <C-k>  <Plug>(deoppet_expand)
+"imap <C-f>  <Plug>(deoppet_jump_forward)
+"imap <C-b>  <Plug>(deoppet_jump_backward)
+"smap <C-f>  <Plug>(deoppet_jump_forward)
+"smap <C-b>  <Plug>(deoppet_jump_backward)
+"endif
+
+""""""""""""""""""""""""""""""""""
+"
 " ddc
 "
 """"""""""""""""""""""""""""""""""
@@ -30,14 +64,25 @@ call ddc#custom#patch_global('ui', 'native')
 
 if has('nvim')
 "call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet','skkeleton'])
-call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet'])
+call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
+"call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
 else
-call ddc#custom#patch_global('sources', ['around','file','vim-lsp','neosnippet'])
+call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
 endif
 
 " sourceOptions
 if has('nvim')
-call ddc#custom#patch_global('sourceOptions', #{
+    " \ 'nvim-lsp': #{
+	"     \ mark: 'nvim-lsp',
+    "     \ forceCompletionPattern: '\.\w*|:\w*|->\w*',
+	"     or
+	"     \  keywordPattern: '\k+',
+    " \ },
+    "\ neosnippet: #{
+	"    \ mark: 'neosnippet',
+	"    \ dup: v:true,
+    "\ },
+	call ddc#custom#patch_global('sourceOptions', #{
     \ around: #{mark: 'A'},
     \ file: #{
     \   mark: 'F',
@@ -45,12 +90,16 @@ call ddc#custom#patch_global('sourceOptions', #{
     \   forceCompletionPattern: '\S/\S*',
     \ },
     \ neosnippet: #{
-	    \ mark: 'neosnippet',
-	    \ dup: v:true,
+	    \ mark: 'NS',
+	    \ dup:"keep",
     \ },
     \ nvim-lsp: #{
 	    \ mark: 'nvim-lsp',
 	    \ forceCompletionPattern: '\\.|:|->',
+    \ },
+    \ lsp: #{
+	    \ mark: 'lsp',
+	    \ forceCompletionPattern: '\.\w*|:\w*|->\w*',
     \ },
     \ necovim: #{mark: 'necovim'},
 	\ skkeleton: #{
@@ -66,7 +115,6 @@ call ddc#custom#patch_global('sourceOptions', #{
     \ }
 	\ })
 else
-
 call ddc#custom#patch_global('sourceOptions', {
     \ 'around': {'mark': 'A'},
     \ 'file': {
@@ -75,8 +123,8 @@ call ddc#custom#patch_global('sourceOptions', {
     \   'forceCompletionPattern': '\S/\S*',
     \ },
     \ 'neosnippet': {
-	    \ 'mark': 'neosnippet',
-	    \ 'dup': v:true,
+	    \ 'mark': 'NS',
+	    \ 'dup': 'keep',
     \ },
     \ 'vim-lsp': {
 	    \ 'mark': 'vim-lsp',
@@ -89,14 +137,22 @@ call ddc#custom#patch_global('sourceOptions', {
     \   'sorters': ['sorter_rank']},
     \ 	'converters': ['converter_remove_overlap'],
     \ })
+
 endif
 
 
 if has('nvim')
 " sourceParams 
-call ddc#custom#patch_global('sourceParams', {
-    \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } },
-    \ })
+call ddc#custom#patch_global('sourceParams', #{
+	\ nvim-lsp: #{
+	\  snippetEngine: denops#callback#register({
+	\        body -> vsnip#anonymous(body)
+	\  }),
+	\  enableResolveItem: v:true,
+	\  enableAdditionalTextEdits: v:true,
+	\  confirmBehavior: 'replace',
+	\ },
+\ })
 endif
 
 " completionMenu
@@ -115,6 +171,15 @@ if has('nvim')
 "	\   'forceCompletionPattern': '\\.|:|->',
 "	\ },
 "	\ })
+call ddc#custom#patch_global('sourceParams', #{
+      \   lsp: #{
+      \     snippetEngine: denops#callback#register({
+      \           body -> vsnip#anonymous(body)
+      \     }),
+      \     enableResolveItem: v:true,
+      \     enableAdditionalTextEdit: v:true,
+      \   }
+      \ })
 else
 "call vimtex#init()
 "call ddc#custom#patch_filetype(['tex'], 'sourceOptions', {
@@ -133,22 +198,3 @@ call ddc#custom#patch_filetype(['vim'],'sources',['necovim','around'])
 
 " enable
 call ddc#enable()
-
-""""""""""""""""""""""""""""""""""
-"
-" deoplete
-"
-""""""""""""""""""""""""""""""""""
-
-" let g:python_host_prog = '/usr/bin/python2'
-" let g:python3_host_prog = '/usr/local/bin/python3.8'
-
-
-"if exists("$VIRTUAL_ENV")
-"  if !empty(glob("$VIRTUAL_ENV/bin/python3"))
-"    let g:python3_host_prog = '~/.virtualenvs/forVim/bin/python'
-"  else
-"    let g:python_host_prog = '~/.virtualenvs/forVim/bin/python'
-"  endif
-"endif
-"

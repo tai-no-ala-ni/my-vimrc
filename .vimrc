@@ -1,3 +1,60 @@
+" check dein
+let $CACHE = expand('~/.cache')
+if !($CACHE->isdirectory())
+  call mkdir($CACHE, 'p')
+endif
+if &runtimepath !~# '/dein.vim'
+  let s:dir = 'dein.vim'->fnamemodify(':p')
+  if !(s:dir->isdirectory())
+    let s:dir = $CACHE .. '/dein/repos/github.com/Shougo/dein.vim'
+    if !(s:dir->isdirectory())
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dir
+    endif
+  endif
+  execute 'set runtimepath^='
+        \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+endif
+"""""""""""""""""""""""""""""""""
+"
+" do not load unnecessary options
+"
+"""""""""""""""""""""""""""""""""
+let g:did_install_default_menus = 1
+let g:did_install_syntax_menu   = 1
+let g:did_indent_on             = 1
+let g:did_load_filetypes        = 1
+let g:did_load_ftplugin         = 1
+let g:loaded_2html_plugin       = 1
+let g:loaded_gzip               = 1
+let g:loaded_man                = 1
+let g:loaded_matchit            = 1
+let g:loaded_matchparen         = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_remote_plugins     = 1
+let g:loaded_shada_plugin       = 1
+let g:loaded_spellfile_plugin   = 1
+let g:loaded_tarPlugin          = 1
+let g:loaded_tutor_mode_plugin  = 1
+let g:loaded_zipPlugin          = 1
+let g:skip_loading_mswin        = 1
+
+
+"""""""""""""""""""""""""""""""""
+"
+" python host prog
+"
+"""""""""""""""""""""""""""""""""
+"if &filetype ==# 'python'
+	if exists('$VIRTUAL_ENV')
+		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
+	else
+		let g:python3_host_prog = system('which python3')
+		let g:python_host_prog = system('which python')
+	endif
+"endif
+
+
 " Ward off unexpected things that your distro might have made, as
 " well as sanely reset options when re-sourcing .vimrc
 set nocompatible
@@ -25,18 +82,29 @@ if executable('deno')
 call dein#add('vim-denops/denops.vim',#{
 \ lazy: 1,
 \ on_event: 'VimEnter',
-\ hook_post_source: 'source ~/mydotfiles/vim/after/denops.vim'
+\ hook_post_source: 'source ~/mydotfiles/vim/after/denops.vim',
 \}) " deno
 call dein#add('wsdjeg/dein-ui.vim',#{
 \ lazy: 1,
 \ on_event: 'VimEnter'
 \})
+if has('nvim')
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim','neosnippet-snippets']
+\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets']
+"\ rev: 'b6aa663',
+"\ rev: 'v2.0.0'
 "\ on_event: 'VimEnter'
 \}) " ddc auto complete
+else
+call dein#add('Shougo/ddc.vim',#{
+\ lazy: 1,
+\ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
+\ depends: ['denops.vim','neosnippet-snippets', 'neosnippet.vim']
+"\ on_event: 'VimEnter'
+\}) " ddc auto complete
+endif
 call dein#add('Shougo/ddc-around',#{
 \ lazy: 1,
 \ depends: ['ddc.vim'],
@@ -82,11 +150,15 @@ call dein#add('matsui54/ddc-dictionary',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " dictionary complete (for ddc)
-call dein#add('Shougo/ddc-source-nvim-lsp',#{
+"call dein#add('Shougo/ddc-source-nvim-lsp',#{
+call dein#add('Shougo/ddc-source-lsp',#{
 \ lazy: 1,
-\ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
-\})
+\}) " lsp source for ddc.vim
+call dein#add('uga-rosa/ddc-source-lsp-setup',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " lsp source setup for ddc.vim
 call dein#add("tai-no-ala-ni/translate-with-gpt-denops",#{
 \ lazy: 1,
 \ on_event: 'BufRead',
@@ -114,10 +186,15 @@ call dein#add('junegunn/fzf.vim') " fzf
 endif
 if has('nvim')
 "for nvim
+call dein#add('roxma/nvim-yarp',#{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " yarp
 call dein#add('williamboman/mason.nvim',#{
 \ lazy: 1,
 \ hook_source: 'luafile ~/mydotfiles/vim/after/mason.lua',
-\ depends: ['mason-lspconfig.nvim','nvim-lspconfig'],
+\ depends: ['mason-lspconfig.nvim','nvim-lspconfig','ddc-source-lsp-setup','ddc-source-lsp'],
+"\ depends: ['mason-lspconfig.nvim','nvim-lspconfig'],
 \ on_event: 'VimEnter'
 \}) " lsp setting
 call dein#add('neovim/nvim-lspconfig', #{
@@ -138,7 +215,7 @@ call dein#add('nvimtools/none-ls.nvim',#{
 \}) " linter and formatter
 call dein#add('Shougo/ddc-nvim-lsp',#{
 \ lazy: 1,
-\ depends: ['mason.nvim','ddc.vim'],
+\ depends: ['mason.nvim'],
 "\ on_event: 'VimEnter'
 \}) " lsp for nvim
 call dein#add('folke/lsp-colors.nvim',#{
@@ -208,7 +285,10 @@ call dein#add('romgrk/barbar.nvim', #{
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/barbar.lua',
 \depends: ['nvim-web-devicons','gitsigns']
 \}) " tabline
-"call dein#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate')} " treesitter
+call dein#add('nvim-treesitter/nvim-treesitter', #{
+\do: ':TSUpdate',
+\merged: 0
+\}) "treesitter
 "call dein#add('rcarriga/nvim-notify') " notify
 "call dein#add('MunifTanjim/nui.nvim') " ui
 "call dein#add('folke/noice.nvim') " change view of messages,cmdline,popupmenu
@@ -230,19 +310,45 @@ call dein#add('prabirshrestha/vim-lsp',#{
 \ hook_post_source: 'source ~/mydotfiles/vim/after/vim-lsp.vim',
 \ on_event: 'VimEnter'
 \}) " language server protocol
+call dein#add('shun/ddc-source-vim-lsp',#{
+\ lazy: 1,
+\ depends: ['vim-lsp']
+\}) " vim-lsp source for ddc.vim
 call dein#add('mattn/vim-lsp-settings',#{
 \ lazy: 1,
 \ on_event: 'VimEnter',
 \ depends: ['vim-lsp']
 \}) " lsp setting
-call dein#add('shun/ddc-vim-lsp',#{
-\ lazy: 1,
-\depends: ['vim-lsp']
-\}) " vim-lsp for ddc.vim
+"call dein#add('shun/ddc-vim-lsp',#{
+"\ lazy: 1,
+"\depends: ['vim-lsp']
+"\}) " vim-lsp for ddc.vim
 call dein#add('lervag/vimtex') " vim tex
 call dein#add('akinsho/bufferline.nvim') " bufferline
 endif
+"if has('nvim')
+"call dein#add('Shougo/deoppet.nvim',#{
+"\ lazy: 1,
+"\ on_event: 'BufRead'
+"\ hook_post_source: 'source ~/mydotfiles/vim/after/deoppet.vim'
+"\}) " snippet
+"else
+"endif
 " vim/nvim
+"call dein#add('Shougo/deoppet.nvim',#{
+"\ build: ':UpdateRemotePlugins',
+"\})
+call dein#add('Shougo/neosnippet.vim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/neosnippet.vim',
+"\ rev: 'ver.2.0'
+\})
+call dein#add('Shougo/neosnippet-snippets',#{
+\ lazy: 1,
+\ dapends: ['neosnippet.vim'],
+\ on_event: 'VimEnter'
+\})
 call dein#add('evanleck/vim-svelte',#{
 \ on_ft: 'svelte'
 \}) " svelte syntax highlight
@@ -275,15 +381,6 @@ call dein#add('itchyny/lightline.vim',#{
 \ lazy: 1,
 \ on_event: 'VimEnter'
 \}) " good status line
-call dein#add('Shougo/neosnippet.vim',#{
-\ lazy: 1,
-\ on_event: 'InsertEnter',
-\ hook_post_source: 'source ~/mydotfiles/vim/after/neosnippet.vim'
-\})
-call dein#add('Shougo/neosnippet-snippets',#{
-\ lazy: 1,
-\dapends: ['neosnippet.vim'],
-\})
 call dein#add('Shougo/vimproc') " async
 call dein#config('vimproc', #{
 \ build: 'make'
@@ -359,10 +456,11 @@ call dein#add('jacquesbh/vim-showmarks',#{
 \ hook_post_source: 'source ~/mydotfiles/vim/after/vim-showmarks.vim',
 \on_event: 'VimEnter'
 \}) " show mark
-call dein#add('jiangmiao/auto-pairs')",#{
+"call dein#add('jiangmiao/auto-pairs')",#{
 "\ lazy: 1,
 "\ hook_post_source: 'source ~/mydotfiles/vim/after/auto-pairs.vim',
-"\on_event: 'InsertEnter'
+"\on_event: 'InsertEnter',
+"\ rev: '39f06b8'
 "\}) " auto-pairs
 call dein#add('tpope/vim-surround',#{
 \ lazy: 1,
@@ -375,7 +473,7 @@ call dein#add('kana/vim-textobj-user',#{
 \}) " user defined textobj
 call dein#add('osyo-manga/vim-textobj-blockwise',#{
 \ lazy: 1,
-\ depends: ['vim-textobj-user'],
+\ depends: ['vim-textobj-user']
 \}) " cIw and <C-v>iw
 call dein#add('thinca/vim-textobj-between',#{
 \ lazy: 1,
@@ -406,6 +504,10 @@ call dein#add('jparise/vim-graphql',#{
 \ on_ft: 'graphql',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/graphql.vim'
 \}) " graphql
+call dein#add('roxma/vim-hug-neovim-rpc', #{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " neovim rpc
 " Finish Dein initialization (required)
 
 call dein#end()
@@ -625,30 +727,6 @@ endif
 
 """""""""""""""""""""""""""""""""
 "
-" do not load unnecessary options
-"
-"""""""""""""""""""""""""""""""""
-let g:did_install_default_menus = 1
-let g:did_install_syntax_menu   = 1
-let g:did_indent_on             = 1
-let g:did_load_filetypes        = 1
-let g:did_load_ftplugin         = 1
-let g:loaded_2html_plugin       = 1
-let g:loaded_gzip               = 1
-let g:loaded_man                = 1
-let g:loaded_matchit            = 1
-let g:loaded_matchparen         = 1
-let g:loaded_netrwPlugin        = 1
-let g:loaded_remote_plugins     = 1
-let g:loaded_shada_plugin       = 1
-let g:loaded_spellfile_plugin   = 1
-let g:loaded_tarPlugin          = 1
-let g:loaded_tutor_mode_plugin  = 1
-let g:loaded_zipPlugin          = 1
-let g:skip_loading_mswin        = 1
-
-"""""""""""""""""""""""""""""""""
-"
 " lazy load
 "
 """""""""""""""""""""""""""""""""
@@ -683,19 +761,9 @@ function! RemoveDisabledPlugins()
 	echo('Disabled plugins are removed.')
 endfunction
 nnoremap <silent> <leader>rdp :<C-u>call RemoveDisabledPlugins()<CR>
-
 """""""""""""""""""""""""""""""""
 "
-" python host prog
+" UpdateRemotePlugins
 "
 """""""""""""""""""""""""""""""""
-if &filetype ==# 'python'
-	if exists('$VIRTUAL_ENV')
-		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
-		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
-	else
-		let g:python3_host_prog = system('which python3')
-		let g:python_host_prog = system('which python')
-	endif
-endif
-
+command UpdateRemotePlugins call remote#host#UpdateRemotePlugins()

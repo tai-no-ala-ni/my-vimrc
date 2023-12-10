@@ -9,14 +9,18 @@ require("mason").setup({
 })
 local mason_lspconfig = require("mason-lspconfig")
 local opts = { noremap = true, silent = true }
+--local capabilities = require("ddc_source_lsp").make_client_capabilities()
 vim.keymap.set("n", "<leader>dof", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "<leader>dgp", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "<leader>dgn", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<leader>dsl", vim.diagnostic.setloclist, opts)
 
+require("ddc_source_lsp_setup").setup()
+
 mason_lspconfig.setup_handlers({
 	function(server_name)
 		local mason_opts = {}
+		--mason_opts.capabilities = capabilities
 
 		-- Use an on_attach function to only map the following keys
 		-- after the language server attaches to the current buffer
