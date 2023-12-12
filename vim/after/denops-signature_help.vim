@@ -7,7 +7,7 @@ let g:signature_help_config = {
       \ 'border': v:true,
       \ 'maxWidth': 100,
       \ 'maxHeight': 30,
-      \ 'style': "full",
+      \ 'viewStyle': "floating",
       \ 'onTriggerChar': v:false,
       \ 'multiLabel': v:false,
       \ 'fallbackToBelow': v:true,

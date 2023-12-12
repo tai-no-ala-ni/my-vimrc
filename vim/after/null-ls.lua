@@ -115,7 +115,8 @@ local python_diagnostics_source = diagnostics.pylint.with({
 			handle:close()
 			pythonpath = os.getenv("VIRTUAL_ENV") .. "/lib/" .. "python" .. pythonversion .. "/site-packages"
 		else
-			local handle = io.popen("which python3")
+			local handle =
+				io.popen("type asdf &> /dev/null && echo -n '$HOME/.asdf/shims/python' || echo -n $(which python)")
 			local result = handle:read("*a")
 			pythonpath = result.gsub(result, "\n", "")
 			handle:close()

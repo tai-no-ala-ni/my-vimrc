@@ -4,13 +4,13 @@
 " deoplete
 "
 """"""""""""""""""""""""""""""""""
-if exists('$VIRTUAL_ENV')
-	let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
-	let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
-else
-	let g:python3_host_prog = system('which python3')
-	let g:python_host_prog = system('which python')
-endif
+	if exists('$VIRTUAL_ENV')
+		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
+	else
+		let g:python3_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
+		let g:python_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
+	endif
 
 """"""""""""""""""""""""""""""""""
 "
@@ -60,7 +60,7 @@ endif
 
 " sources
 
-call ddc#custom#patch_global('ui', 'native')
+call ddc#custom#patch_global('ui', 'pum')
 
 if has('nvim')
 "call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet','skkeleton'])
@@ -89,17 +89,16 @@ if has('nvim')
     \   isVolatile: v:true,
     \   forceCompletionPattern: '\S/\S*',
     \ },
+	\ deoppet: #{
+	\   mark: 'deoppet',
+	\   dup: v:true,
+	\ },
     \ neosnippet: #{
 	    \ mark: 'NS',
 	    \ dup:"keep",
     \ },
-    \ nvim-lsp: #{
-	    \ mark: 'nvim-lsp',
-	    \ forceCompletionPattern: '\\.|:|->',
-    \ },
     \ lsp: #{
-	    \ mark: 'lsp',
-	    \ forceCompletionPattern: '\.\w*|:\w*|->\w*',
+	    \ mark: 'lsp'
     \ },
     \ necovim: #{mark: 'necovim'},
 	\ skkeleton: #{
@@ -144,7 +143,7 @@ endif
 if has('nvim')
 " sourceParams 
 call ddc#custom#patch_global('sourceParams', #{
-	\ nvim-lsp: #{
+	\ lsp: #{
 	\  snippetEngine: denops#callback#register({
 	\        body -> vsnip#anonymous(body)
 	\  }),

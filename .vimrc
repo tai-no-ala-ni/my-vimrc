@@ -49,8 +49,8 @@ let g:skip_loading_mswin        = 1
 		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
 		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
 	else
-		let g:python3_host_prog = system('which python3')
-		let g:python_host_prog = system('which python')
+		let g:python3_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
+		let g:python_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
 	endif
 "endif
 
@@ -140,6 +140,11 @@ call dein#add('Shougo/ddc-ui-native',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " native ui for ddc
+call dein#add('Shougo/ddc-ui-pum',#{
+\ lazy: 1,
+\ depends: ['ddc.vim'],
+\ on_event: 'VimEnter'
+\}) " pum ui for ddc
 call dein#add('tani/ddc-fuzzy',#{
 \ lazy: 1,
 \ depends: ['ddc.vim'],
@@ -326,18 +331,8 @@ call dein#add('mattn/vim-lsp-settings',#{
 call dein#add('lervag/vimtex') " vim tex
 call dein#add('akinsho/bufferline.nvim') " bufferline
 endif
-"if has('nvim')
-"call dein#add('Shougo/deoppet.nvim',#{
-"\ lazy: 1,
-"\ on_event: 'BufRead'
-"\ hook_post_source: 'source ~/mydotfiles/vim/after/deoppet.vim'
-"\}) " snippet
-"else
-"endif
 " vim/nvim
-"call dein#add('Shougo/deoppet.nvim',#{
-"\ build: ':UpdateRemotePlugins',
-"\})
+"call dein#add('Shougo/deoppet.nvim')
 call dein#add('Shougo/neosnippet.vim',#{
 \ lazy: 1,
 \ on_event: 'VimEnter',
@@ -517,6 +512,8 @@ autocmd VimEnter * call dein#call_hook('post_source')
 
 " auto upodate
 let g:dein#auto_update = 1
+let g:dein#auto_recache = 'v:true'
+let g:dein#auto_remote_plugins = 'v:true'
 
 if has('filetype')
   filetype indent plugin on
