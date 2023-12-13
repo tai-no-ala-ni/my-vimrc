@@ -54,7 +54,7 @@ Please choose 2(local path)
 sudo apt update -y
 sudo apt install -y fzf luarocks nodejs npm curl
 curl -fsSL https://deno.land/x/install/install.sh | sh
-pip3 install --user pynvim
+pip3 install --user pynvim neovim
 ```
 
 :five: :airplane: Make symlinks for .vimrc :bangbang:
@@ -107,7 +107,7 @@ Please choose 2(local path)
 ```bash
 brew install fzf luarocks nodejs npm curl
 curl -fsSL https://deno.land/x/install/install.sh | sh
-pip3 install --user pynvim
+pip3 install --user pynvim neovim
 ```
 
 :five: :airplane: Make symlinks for .vimrc :bangbang:
