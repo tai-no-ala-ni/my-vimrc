@@ -71,17 +71,7 @@ call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
 endif
 
 " sourceOptions
-if has('nvim')
-    " \ 'nvim-lsp': #{
-	"     \ mark: 'nvim-lsp',
-    "     \ forceCompletionPattern: '\.\w*|:\w*|->\w*',
-	"     or
-	"     \  keywordPattern: '\k+',
-    " \ },
-    "\ neosnippet: #{
-	"    \ mark: 'neosnippet',
-	"    \ dup: v:true,
-    "\ },
+"if has('nvim')
 	call ddc#custom#patch_global('sourceOptions', #{
     \ around: #{mark: 'A'},
     \ file: #{
@@ -89,16 +79,13 @@ if has('nvim')
     \   isVolatile: v:true,
     \   forceCompletionPattern: '\S/\S*',
     \ },
-	\ deoppet: #{
-	\   mark: 'deoppet',
-	\   dup: v:true,
-	\ },
     \ neosnippet: #{
 	    \ mark: 'NS',
 	    \ dup:"keep",
     \ },
     \ lsp: #{
-	    \ mark: 'lsp'
+	    \ mark: 'LSP',
+		\ keywordPattern: '\k+'
     \ },
     \ necovim: #{mark: 'necovim'},
 	\ skkeleton: #{
@@ -113,31 +100,31 @@ if has('nvim')
     \ 	converters: ['converter_fuzzy'],
     \ }
 	\ })
-else
-call ddc#custom#patch_global('sourceOptions', {
-    \ 'around': {'mark': 'A'},
-    \ 'file': {
-    \   'mark': 'F',
-    \   'isVolatile': v:true,
-    \   'forceCompletionPattern': '\S/\S*',
-    \ },
-    \ 'neosnippet': {
-	    \ 'mark': 'NS',
-	    \ 'dup': 'keep',
-    \ },
-    \ 'vim-lsp': {
-	    \ 'mark': 'vim-lsp',
-	    \ 'forceCompletionPattern': '\\.|:|->',
-		\ 'minAutoCompleteLength': 1,
-    \ },
-    \ 'necovim': {'mark': 'necovim'},
-    \ '_': {
-    \   'matchers': ['matcher_head'],
-    \   'sorters': ['sorter_rank']},
-    \ 	'converters': ['converter_remove_overlap'],
-    \ })
-
-endif
+"else
+"call ddc#custom#patch_global('sourceOptions', {
+"    \ 'around': {'mark': 'A'},
+"    \ 'file': {
+"    \   'mark': 'F',
+"    \   'isVolatile': v:true,
+"    \   'forceCompletionPattern': '\S/\S*',
+"    \ },
+"    \ 'neosnippet': {
+"	    \ 'mark': 'NS',
+"	    \ 'dup': 'keep',
+"    \ },
+"    \ 'lsp': {
+"	    \ 'mark': 'LSP',
+"	    \ 'forceCompletionPattern': '\\.|:|->',
+"		\ 'minAutoCompleteLength': 1,
+"    \ },
+"    \ 'necovim': {'mark': 'necovim'},
+"    \ '_': {
+"    \   'matchers': ['matcher_head'],
+"    \   'sorters': ['sorter_rank']},
+"    \ 	'converters': ['converter_remove_overlap'],
+"    \ })
+"
+"endif
 
 
 if has('nvim')
@@ -145,7 +132,7 @@ if has('nvim')
 call ddc#custom#patch_global('sourceParams', #{
 	\ lsp: #{
 	\  snippetEngine: denops#callback#register({
-	\        body -> vsnip#anonymous(body)
+	\        body -> neosnippet#anonymous(body)
 	\  }),
 	\  enableResolveItem: v:true,
 	\  enableAdditionalTextEdits: v:true,
@@ -162,7 +149,6 @@ call ddc#custom#patch_global('autoCompleteEvents', [
     \ ])
 
 " latex
-if has('nvim')
 "call ddc#custom#patch_filetype(['tex','bib'], 'sources', ['texlab'])
 "call ddc#custom#patch_filetype(['tex','bib'],'sourceOptions', {
 "	\ 'texlab': {
@@ -170,16 +156,6 @@ if has('nvim')
 "	\   'forceCompletionPattern': '\\.|:|->',
 "	\ },
 "	\ })
-call ddc#custom#patch_global('sourceParams', #{
-      \   lsp: #{
-      \     snippetEngine: denops#callback#register({
-      \           body -> vsnip#anonymous(body)
-      \     }),
-      \     enableResolveItem: v:true,
-      \     enableAdditionalTextEdit: v:true,
-      \   }
-      \ })
-else
 "call vimtex#init()
 "call ddc#custom#patch_filetype(['tex'], 'sourceOptions', {
 "      \ 'omni': {
@@ -189,7 +165,6 @@ else
 "call ddc#custom#patch_filetype(['tex'], 'sourceParams', {
 "      \ 'omni': {'omnifunc': 'vimtex#complete#omnifunc'},
 "      \ })
-endif
 
 " vim
 call ddc#custom#patch_filetype(['vim'],'sources',['necovim','around'])
