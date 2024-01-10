@@ -60,7 +60,7 @@ endif
 
 " sources
 
-call ddc#custom#patch_global('ui', 'pum')
+call ddc#custom#patch_global('ui', 'native')
 
 if has('nvim')
 "call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet','skkeleton'])

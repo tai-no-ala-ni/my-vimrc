@@ -1,19 +1,19 @@
 " check dein
-let $CACHE = expand('~/.cache')
-if !($CACHE->isdirectory())
-  call mkdir($CACHE, 'p')
-endif
-if &runtimepath !~# '/dein.vim'
-  let s:dir = 'dein.vim'->fnamemodify(':p')
-  if !(s:dir->isdirectory())
-    let s:dir = $CACHE .. '/dein/repos/github.com/Shougo/dein.vim'
-    if !(s:dir->isdirectory())
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dir
-    endif
-  endif
-  execute 'set runtimepath^='
-        \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
-endif
+"let $CACHE = expand('~/.cache')
+"if !($CACHE->isdirectory())
+"  call mkdir($CACHE, 'p')
+"endif
+"if &runtimepath !~# '/dein.vim'
+"  let s:dir = 'dein.vim'->fnamemodify(':p')
+"  if !(s:dir->isdirectory())
+"    let s:dir = $CACHE .. '/dein/repos/github.com/Shougo/dein.vim'
+"    if !(s:dir->isdirectory())
+"      execute '!git clone https://github.com/Shougo/dein.vim' s:dir
+"    endif
+"  endif
+"  execute 'set runtimepath^='
+"        \ .. s:dir->fnamemodify(':p')->substitute('[/\\]$', '', '')
+"endif
 """""""""""""""""""""""""""""""""
 "
 " do not load unnecessary options
@@ -44,6 +44,7 @@ let g:skip_loading_mswin        = 1
 " python host prog
 "
 """""""""""""""""""""""""""""""""
+function! SetPythonHost(timer_id)
 "if &filetype ==# 'python'
 	if exists('$VIRTUAL_ENV')
 		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
@@ -53,6 +54,9 @@ let g:skip_loading_mswin        = 1
 		let g:python_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
 	endif
 "endif
+endfunction
+
+let timer_id = timer_start(1000, function('SetPythonHost'))
 
 
 " Ward off unexpected things that your distro might have made, as
