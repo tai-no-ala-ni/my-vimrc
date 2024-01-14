@@ -136,7 +136,7 @@ call ddc#custom#patch_global('sourceParams', #{
 	\  }),
 	\  enableResolveItem: v:true,
 	\  enableAdditionalTextEdits: v:true,
-	\  confirmBehavior: 'replace',
+	\  confirmBehavior: 'insert',
 	\ },
 \ })
 endif
