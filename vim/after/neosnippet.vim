@@ -5,8 +5,8 @@
 "
 """"""""""""""""""""""""""""""""""
 let g:neosnippet#snippets_directory='~/mydotfiles/mysnip/'
-let g:neosnippet#enable_completed_snippet = 1
-let g:neosnippet#enable_complete_done = 1
+let g:neosnippet#enable_completed_snippet = 0
+let g:neosnippet#enable_complete_done = 0
 "let g:neosnippet#disable_runtime_snippets = {'_':1}
 
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.

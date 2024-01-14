@@ -461,11 +461,11 @@ call dein#add('jacquesbh/vim-showmarks',#{
 "\on_event: 'InsertEnter',
 "\ rev: '39f06b8'
 "\}) " auto-pairs
-call dein#add('tpope/vim-surround',#{
-\ lazy: 1,
-\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-surround.vim',
-\on_event: 'VimEnter'
-\}) " surround
+"call dein#add('tpope/vim-surround',#{
+"\ lazy: 1,
+"\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-surround.vim',
+"\on_event: 'VimEnter'
+"\}) " surround
 call dein#add('kana/vim-textobj-user',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/vim-textobj.vim',
