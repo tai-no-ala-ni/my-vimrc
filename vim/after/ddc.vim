@@ -4,12 +4,19 @@
 " deoplete
 "
 """"""""""""""""""""""""""""""""""
+	if !has('win32')
 	if exists('$VIRTUAL_ENV')
 		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
 		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
 	else
 		let g:python3_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
 		let g:python_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
+	endif
+	else
+		let python_path = system('where python.exe')
+		let python_path = split(python_path,'\n')[0]
+		let g:python3_host_prog = python_path
+		let g:python_host_prog = python_path
 	endif
 
 """"""""""""""""""""""""""""""""""
