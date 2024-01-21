@@ -44,8 +44,9 @@ let g:skip_loading_mswin        = 1
 " python host prog
 "
 """""""""""""""""""""""""""""""""
-function! SetPythonHost(timer_id)
+"function! g:SetPythonHost()
 "if &filetype ==# 'python'
+if !has('win32')
 	if exists('$VIRTUAL_ENV')
 		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
 		let g:python_host_prog = $VIRTUAL_ENV . '/bin/python'
@@ -53,10 +54,17 @@ function! SetPythonHost(timer_id)
 		let g:python3_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
 		let g:python_host_prog = system('type asdf &> /dev/null && echo -n "$HOME/.asdf/shims/python" || echo -n $(which python)')
 	endif
+	else
+		let python_path = system('where python.exe')
+		let python_path = split(python_path,'\n')[0]
+		let g:python3_host_prog = python_path
+		let g:python_host_prog = python_path
+endif
 "endif
-endfunction
+"endfunction
 
-let timer_id = timer_start(1000, function('SetPythonHost'))
+"let timer_id = timer_start(1000, function('SetPythonHost'))
+"call SetPythonHost()
 
 
 " Ward off unexpected things that your distro might have made, as
