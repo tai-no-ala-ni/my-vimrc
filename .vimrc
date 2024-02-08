@@ -157,6 +157,11 @@ call dein#add('Shougo/ddc-ui-pum',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " pum ui for ddc
+call dein#add('Shougo/ddc-ui-none',#{
+\ lazy: 1,
+\ depends: ['ddc.vim'],
+\ on_event: 'VimEnter'
+\}) " none for ddc
 call dein#add('tani/ddc-fuzzy',#{
 \ lazy: 1,
 \ depends: ['ddc.vim'],

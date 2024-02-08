@@ -28,7 +28,11 @@ inoremap <silent><expr> <C-n>
       \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
       \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
       \ '<TAB>' : ddc#map#manual_complete()
-inoremap <C-p> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <silent><expr> <C-p>
+      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \ '<TAB>' : ddc#map#manual_complete()
+inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
@@ -107,6 +111,11 @@ endif
     \ 	converters: ['converter_fuzzy'],
     \ }
 	\ })
+	"call ddc#custom#patch_global('uiParams', #{
+	"  \   pum: #{
+	"  \     insert: v:true,
+	"  \   }
+	"  \ })
 "else
 "call ddc#custom#patch_global('sourceOptions', {
 "    \ 'around': {'mark': 'A'},
@@ -149,7 +158,7 @@ call ddc#custom#patch_global('sourceParams', #{
 endif
 
 " completionMenu
-" call ddc#custom#patch_global('completionMenu', 'pum.vim')
+call ddc#custom#patch_global('ui', 'pum')
 call ddc#custom#patch_global('autoCompleteEvents', [
     \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
     \ 'CmdlineEnter', 'CmdlineChanged',
