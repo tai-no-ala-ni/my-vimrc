@@ -72,6 +72,7 @@ endif
 " sources
 
 call ddc#custom#patch_global('ui', 'native')
+call ddc#enable_terminal_completion()
 
 if has('nvim')
 "call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet','skkeleton'])
@@ -161,7 +162,7 @@ endif
 call ddc#custom#patch_global('ui', 'pum')
 call ddc#custom#patch_global('autoCompleteEvents', [
     \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
-    \ 'CmdlineEnter', 'CmdlineChanged',
+    \ 'CmdlineEnter', 'CmdlineChanged', 'TextChangedT'
     \ ])
 
 " latex
@@ -185,6 +186,21 @@ call ddc#custom#patch_global('autoCompleteEvents', [
 " vim
 call ddc#custom#patch_filetype(['vim'],'sources',['necovim','around'])
 
+" For deol buffer.
+call ddc#custom#patch_filetype(['deol'], #{
+\   specialBufferCompletion: v:true,
+\   sources: ['shell-native', 'around'],
+\   sourceOptions: #{
+\     _: #{
+\       keywordPattern: '[0-9a-zA-Z_./#:-]*',
+\     },
+\	  shell-native: #{mark: 'zsh'},
+\   },
+\	sourceParams: #{
+\	  shell-native: #{shell: 'zsh'},
+\	},
+\ })
 
 " enable
 call ddc#enable()
+
