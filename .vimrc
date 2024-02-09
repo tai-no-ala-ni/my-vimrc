@@ -104,7 +104,7 @@ if has('nvim')
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets']
+\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim']
 "\ rev: 'b6aa663',
 "\ rev: 'v2.0.0'
 "\ on_event: 'VimEnter'
@@ -157,6 +157,23 @@ call dein#add('Shougo/ddc-ui-pum',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " pum ui for ddc
+call dein#add('Shougo/ddc-ui-none',#{
+\ lazy: 1,
+\ depends: ['ddc.vim'],
+\ on_event: 'VimEnter'
+\}) " none for ddc
+if has('nvim')
+call dein#add('Shougo/deol.nvim',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/deol.vim',
+\}) " Dark powered shell interface
+call dein#add('Shougo/ddc-source-shell-native',#{
+\ lazy: 1,
+\ depends: ['ddc.vim'],
+\ on_event: 'VimEnter'
+\}) " Shell native completion for ddc.vim
+endif
 call dein#add('tani/ddc-fuzzy',#{
 \ lazy: 1,
 \ depends: ['ddc.vim'],
