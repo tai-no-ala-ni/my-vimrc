@@ -57,8 +57,11 @@ if !has('win32')
 	else
 		let python_path = system('where python.exe')
 		let python_path = split(python_path,'\n')[0]
-		let g:python3_host_prog = python_path
-		let g:python_host_prog = python_path
+		
+		let python_path_escaped = substitute(python_path, '\\', '/', 'g')
+
+		let g:python3_host_prog = python_path_escaped
+		let g:python_host_prog = python_path_escaped
 endif
 "endif
 "endfunction
@@ -167,7 +170,7 @@ call dein#add('matsui54/ddc-dictionary',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " dictionary complete (for ddc)
-"call dein#add('Shougo/ddc-source-nvim-lsp',#{
+call dein#add('Shougo/ddc-source-nvim-lsp')
 call dein#add('Shougo/ddc-source-lsp',#{
 \ lazy: 1,
 \ on_event: 'VimEnter'
