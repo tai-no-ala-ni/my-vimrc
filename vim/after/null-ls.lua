@@ -19,7 +19,7 @@ local on_attach = function(client, bufnr)
 	end
 end
 
-local prettier_formatting_source = formatting.prettier.with({
+local prettier_formatting_source = formatting.prettierd.with({
 	filetypes = {
 		"javascript",
 		"javascriptreact",
@@ -82,7 +82,6 @@ local eslint_diagnostics_source = require("none-ls.diagnostics.eslint_d").with({
 	end,
 })
 
-
 --local latex_diagnostics_source = require("none-ls.diagnostics.chktex").with({
 --	filetypes = { "tex" },
 --})
@@ -90,7 +89,7 @@ local eslint_diagnostics_source = require("none-ls.diagnostics.eslint_d").with({
 --	filetypes = { "tex" },
 --})
 local latex_formatting_source = require("none-ls.formatting.latexindent").with({
-	filetypes = {"tex"},
+	filetypes = { "tex" },
 })
 local textlint_diagnotics_source = diagnostics.textlint.with({
 	filetypes = { "tex" },
@@ -153,6 +152,9 @@ local vint_lint_diagnostics_source = diagnostics.vint.with({
 	filetypes = { "vim" },
 })
 
+local php_formatting_source = formatting.pretty_php
+local php_diagnostics_source = diagnostics.phpcs
+
 local sources = {
 	eslint_formatting_source,
 	prettier_formatting_source,
@@ -171,6 +173,8 @@ local sources = {
 	golang_imports_formatting_source,
 	golangci_lint_diagnostics_source,
 	vint_lint_diagnostics_source,
+	php_formatting_source,
+	php_diagnostics_source,
 }
 
 null_ls.setup({
@@ -199,6 +203,9 @@ null_ls.setup({
 		"black",
 		"gofumpt",
 		"goimports",
+		"pretty-php",
+		"intelephense",
+		"phpcs",
 	},
 	debug = true,
 	on_attach = on_attach,
