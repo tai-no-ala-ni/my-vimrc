@@ -420,7 +420,7 @@ call dein#config('vimproc', #{
 \ }) " async
 call dein#add('mattn/emmet-vim',#{
 \ lazy: 1,
-\ on_ft: ['html','css','javascript','typescript','javascriptreact','typescriptreact','svelte','vue'],
+\ on_ft: ['html','css','javascript','typescript','javascriptreact','typescriptreact','svelte','vue','php'],
 \ hook_post_source: 'source ~/mydotfiles/vim/after/emmet.vim'
 \}) " html emmet
 call dein#add('ekalinin/dockerfile.vim',#{
