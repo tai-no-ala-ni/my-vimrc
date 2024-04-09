@@ -35,7 +35,7 @@ call ddc#enable_terminal_completion()
 
 if has('nvim')
 "call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet','skkeleton'])
-call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet'])
+call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
 else
 call ddc#custom#patch_global('sources', ['around','file','vim-lsp','neosnippet'])
 endif
@@ -54,7 +54,7 @@ call ddc#custom#patch_global('sourceOptions', #{
 	    \ mark: 'neosnippet',
 	    \ dup: v:true,
     \ },
-    \ nvim-lsp: #{
+    \ lsp: #{
 	    \ mark: 'nvim-lsp',
 	    \ forceCompletionPattern: '\\.|:|->',
     \ },

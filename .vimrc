@@ -107,7 +107,7 @@ if has('nvim')
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim']
+\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim','ddc-source-lsp','ddc-source-lsp-setup']
 "\ rev: 'b6aa663',
 "\ rev: 'v2.0.0'
 "\ on_event: 'VimEnter'
@@ -248,6 +248,12 @@ call dein#add('nvimtools/none-ls.nvim',#{
 \ lazy: 1,
 \ depends: ['mason.nvim'],
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua',
+\ on_event: 'VimEnter'
+\}) " linter and formatter
+call dein#add('nvimtools/none-ls-extras.nvim',#{
+\ lazy: 1,
+\ depends: ['mason.nvim','none-ls.nvim'],
+"\ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua',
 \ on_event: 'VimEnter'
 \}) " linter and formatter
 call dein#add('Shougo/ddc-nvim-lsp',#{

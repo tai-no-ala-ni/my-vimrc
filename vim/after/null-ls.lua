@@ -4,6 +4,8 @@ local helpers = require("null-ls.helpers")
 -- added by nvim-notify
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
+--local formatting = require("none-ls.formatting")
+--local diagnostics = require("none-ls.diagnostics")
 local on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -17,7 +19,7 @@ local on_attach = function(client, bufnr)
 	end
 end
 
-local prettier_formatting_source = formatting.prettierd.with({
+local prettier_formatting_source = formatting.prettier.with({
 	filetypes = {
 		"javascript",
 		"javascriptreact",
@@ -37,7 +39,7 @@ local prettier_formatting_source = formatting.prettierd.with({
 	prefer_local = "node_modules/.bin",
 })
 
-local eslint_formatting_source = formatting.eslint_d.with({
+local eslint_formatting_source = require("none-ls.formatting.eslint_d").with({
 	filetypes = {
 		"javascript",
 		"javascriptreact",
@@ -53,9 +55,11 @@ local eslint_formatting_source = formatting.eslint_d.with({
 	prefer_local = "node_modules/.bin",
 })
 
+--local eslint_formatting_source = require("none-ls.formatting.eslint_d")
+
 local lua_source = formatting.stylua.with({ filetypes = { "lua" } })
 
-local eslint_diagnostics_source = diagnostics.eslint_d.with({
+local eslint_diagnostics_source = require("none-ls.diagnostics.eslint_d").with({
 	filetypes = {
 		"javascript",
 		"javascriptreact",
@@ -78,11 +82,15 @@ local eslint_diagnostics_source = diagnostics.eslint_d.with({
 	end,
 })
 
-local latex_diagnostics_source = diagnostics.chktex.with({
-	filetypes = { "tex" },
-})
-local latex_formatting_source = formatting.latexindent.with({
-	filetypes = { "tex" },
+
+--local latex_diagnostics_source = require("none-ls.diagnostics.chktex").with({
+--	filetypes = { "tex" },
+--})
+--local latex_formatting_source = formatting.latexindent.with({
+--	filetypes = { "tex" },
+--})
+local latex_formatting_source = require("none-ls.formatting.latexindent").with({
+	filetypes = {"tex"},
 })
 local textlint_diagnotics_source = diagnostics.textlint.with({
 	filetypes = { "tex" },
@@ -96,9 +104,9 @@ local textlint_formatting_source = formatting.textlint.with({
 local shellharden_formatting_source = formatting.shellharden.with({
 	filetypes = { "sh", "zsh", "bash" },
 })
-local shellcheck_diagnotics_source = diagnostics.shellcheck.with({
-	filetypes = { "sh", "zsh", "bash" },
-})
+--local shellcheck_diagnotics_source = require("none-ls.diagnostics.shellcheck").with({
+--	filetypes = { "sh", "zsh", "bash" },
+--})
 
 local clang_format_formatting_source = formatting.clang_format.with({
 	filetypes = { "c", "cpp", "objc", "objcpp" },
@@ -150,12 +158,12 @@ local sources = {
 	prettier_formatting_source,
 	lua_source,
 	eslint_diagnostics_source,
-	latex_diagnostics_source,
+	--latex_diagnostics_source,
 	latex_formatting_source,
 	textlint_diagnotics_source,
 	--textlint_formatting_source,
 	shellharden_formatting_source,
-	shellcheck_diagnotics_source,
+	--shellcheck_diagnotics_source,
 	clang_format_formatting_source,
 	python_diagnostics_source,
 	python_formatting_source,
