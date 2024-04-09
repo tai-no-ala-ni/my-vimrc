@@ -98,6 +98,7 @@ call dein#add('vim-denops/denops.vim',#{
 \ lazy: 1,
 \ on_event: 'VimEnter',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/denops.vim',
+\ rev: 'v5.0.0'
 \}) " deno
 call dein#add('wsdjeg/dein-ui.vim',#{
 \ lazy: 1,
