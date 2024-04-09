@@ -57,8 +57,11 @@ if !has('win32')
 	else
 		let python_path = system('where python.exe')
 		let python_path = split(python_path,'\n')[0]
-		let g:python3_host_prog = python_path
-		let g:python_host_prog = python_path
+		
+		let python_path_escaped = substitute(python_path, '\\', '/', 'g')
+
+		let g:python3_host_prog = python_path_escaped
+		let g:python_host_prog = python_path_escaped
 endif
 "endif
 "endfunction
@@ -104,7 +107,7 @@ if has('nvim')
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim']
+\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim','ddc-source-lsp','ddc-source-lsp-setup']
 "\ rev: 'b6aa663',
 "\ rev: 'v2.0.0'
 "\ on_event: 'VimEnter'
@@ -184,7 +187,7 @@ call dein#add('matsui54/ddc-dictionary',#{
 \ depends: ['ddc.vim'],
 \ on_event: 'VimEnter'
 \}) " dictionary complete (for ddc)
-"call dein#add('Shougo/ddc-source-nvim-lsp',#{
+call dein#add('Shougo/ddc-source-nvim-lsp')
 call dein#add('Shougo/ddc-source-lsp',#{
 \ lazy: 1,
 \ on_event: 'VimEnter'
@@ -245,6 +248,12 @@ call dein#add('nvimtools/none-ls.nvim',#{
 \ lazy: 1,
 \ depends: ['mason.nvim'],
 \ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua',
+\ on_event: 'VimEnter'
+\}) " linter and formatter
+call dein#add('nvimtools/none-ls-extras.nvim',#{
+\ lazy: 1,
+\ depends: ['mason.nvim','none-ls.nvim'],
+"\ hook_post_source: 'luafile ~/mydotfiles/vim/after/null-ls.lua',
 \ on_event: 'VimEnter'
 \}) " linter and formatter
 call dein#add('Shougo/ddc-nvim-lsp',#{
@@ -411,7 +420,7 @@ call dein#config('vimproc', #{
 \ }) " async
 call dein#add('mattn/emmet-vim',#{
 \ lazy: 1,
-\ on_ft: ['html','css','javascript','typescript','javascriptreact','typescriptreact','svelte','vue'],
+\ on_ft: ['html','css','javascript','typescript','javascriptreact','typescriptreact','svelte','vue','php'],
 \ hook_post_source: 'source ~/mydotfiles/vim/after/emmet.vim'
 \}) " html emmet
 call dein#add('ekalinin/dockerfile.vim',#{
