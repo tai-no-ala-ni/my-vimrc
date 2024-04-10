@@ -108,9 +108,9 @@ if has('nvim')
 call dein#add('Shougo/ddc.vim',#{
 \ lazy: 1,
 \ hook_post_source: 'source ~/mydotfiles/vim/after/ddc.vim',
-\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim','ddc-source-lsp','ddc-source-lsp-setup']
+\ depends: ['denops.vim','none-ls.nvim','neosnippet.vim','neosnippet-snippets','deol.nvim','ddc-source-lsp','ddc-source-lsp-setup'],
 "\ rev: 'b6aa663',
-"\ rev: 'v2.0.0'
+\ rev: 'v4.2.0'
 "\ on_event: 'VimEnter'
 \}) " ddc auto complete
 else
