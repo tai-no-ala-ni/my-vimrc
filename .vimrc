@@ -83,7 +83,9 @@ let s:dein_src = expand('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
 " Set Dein runtime path (required)
 execute 'set runtimepath+=' . s:dein_src
 
-let g:denops_disable_version_check = 0
+"let g:denops_disable_version_check = 0
+"let g:denops#server#deno_args = ['-q','--no-lock','-A']
+"let g:denops_disable_version_check = 1
 
 " Call Dein initialization (required)
 call dein#begin(s:dein_base)
@@ -98,7 +100,7 @@ call dein#add('vim-denops/denops.vim',#{
 \ lazy: 1,
 \ on_event: 'VimEnter',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/denops.vim',
-\ rev: 'v5.0.0'
+\ rev: 'v6.0.0'
 \}) " deno
 call dein#add('wsdjeg/dein-ui.vim',#{
 \ lazy: 1,
