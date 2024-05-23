@@ -155,6 +155,13 @@ local vint_lint_diagnostics_source = diagnostics.vint.with({
 local php_formatting_source = formatting.pretty_php
 local php_diagnostics_source = diagnostics.phpcs
 
+local rust_formatting_source = require("none-ls.formatting.rustfmt").with({
+	filetypes = { "rust" },
+})
+--local rust_diagnostics_source = diagnostics.ast-grep.with({
+--	filetypes = { "rust" },
+--})
+
 local sources = {
 	eslint_formatting_source,
 	prettier_formatting_source,
@@ -175,6 +182,8 @@ local sources = {
 	vint_lint_diagnostics_source,
 	php_formatting_source,
 	php_diagnostics_source,
+	rust_formatting_source,
+	--rust_diagnostics_source,
 }
 
 null_ls.setup({
@@ -206,6 +215,7 @@ null_ls.setup({
 		"pretty-php",
 		"intelephense",
 		"phpcs",
+		"rustfmt",
 	},
 	debug = true,
 	on_attach = on_attach,

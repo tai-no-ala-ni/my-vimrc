@@ -143,7 +143,7 @@ call ddc#custom#patch_global('sourceParams', #{
 endif
 
 " completionMenu
-call ddc#custom#patch_global('ui', 'pum')
+"call ddc#custom#patch_global('ui', 'pum')
 call ddc#custom#patch_global('autoCompleteEvents', [
     \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
     \ 'CmdlineEnter', 'CmdlineChanged', 'TextChangedT'
