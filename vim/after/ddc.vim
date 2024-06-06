@@ -30,14 +30,16 @@ endif
 
 " sources
 
+if has('nvim')
 call ddc#custom#patch_global('ui', 'native')
 call ddc#enable_terminal_completion()
+endif
 
 if has('nvim')
 "call ddc#custom#patch_global('sources', ['around','file','nvim-lsp','neosnippet','skkeleton'])
 call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
 else
-call ddc#custom#patch_global('sources', ['around','file','vim-lsp','neosnippet'])
+call ddc#custom#patch_global('sources', ['around','file','lsp','neosnippet'])
 endif
 
 
@@ -73,27 +75,23 @@ call ddc#custom#patch_global('sourceOptions', #{
 	\ })
 else
 
-call ddc#custom#patch_global('sourceOptions', {
-    \ 'around': {'mark': 'A'},
-    \ 'file': {
-    \   'mark': 'F',
-    \   'isVolatile': v:true,
-    \   'forceCompletionPattern': '\S/\S*',
+call ddc#custom#patch_global('sourceOptions', #{
+    \ around: #{mark: 'A'},
+    \ file: #{
+    \   mark: 'F',
+    \   isVolatile: v:true,
+    \   forceCompletionPattern: '\S/\S*',
     \ },
-    \ 'neosnippet': {
-	    \ 'mark': 'neosnippet',
-	    \ 'dup': v:true,
+    \ lsp: #{
+	    \ mark: 'vim-lsp',
+	    \ forceCompletionPattern: '\\.|:|->',
+		\ minAutoCompleteLength: 1,
     \ },
-    \ 'vim-lsp': {
-	    \ 'mark': 'vim-lsp',
-	    \ 'forceCompletionPattern': '\\.|:|->',
-		\ 'minAutoCompleteLength': 1,
-    \ },
-    \ 'necovim': {'mark': 'necovim'},
-    \ '_': {
-    \   'matchers': ['matcher_head'],
-    \   'sorters': ['sorter_rank']},
-    \ 	'converters': ['converter_remove_overlap'],
+    \ necovim: #{'mark': 'necovim'},
+    \ '_': #{
+    \   matchers: ['matcher_head'],
+    \   sorters: ['sorter_rank']},
+    \ 	converters: ['converter_remove_overlap'],
     \ })
 endif
 	"call ddc#custom#patch_global('uiParams', #{
@@ -140,7 +138,6 @@ call ddc#custom#patch_global('sourceParams', #{
 	\  confirmBehavior: 'insert',
 	\ },
 \ })
-endif
 
 " completionMenu
 "call ddc#custom#patch_global('ui', 'pum')
@@ -149,6 +146,7 @@ call ddc#custom#patch_global('autoCompleteEvents', [
     \ 'CmdlineEnter', 'CmdlineChanged', 'TextChangedT'
     \ ])
 
+endif
 " latex
 if has('nvim')
 "call ddc#custom#patch_filetype(['tex','bib'], 'sources', ['texlab'])
@@ -173,6 +171,7 @@ endif
 " vim
 call ddc#custom#patch_filetype(['vim'],'sources',['necovim','around'])
 
+if has('nvim')
 " For deol buffer.
 call ddc#custom#patch_filetype(['deol'], #{
 \   specialBufferCompletion: v:true,
@@ -187,6 +186,7 @@ call ddc#custom#patch_filetype(['deol'], #{
 \	  shell-native: #{shell: 'zsh'},
 \	},
 \ })
+endif
 
 " enable
 call ddc#enable()
