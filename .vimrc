@@ -544,6 +544,12 @@ call dein#add('roxma/vim-hug-neovim-rpc', #{
 \ lazy: 1,
 \ on_event: 'VimEnter'
 \}) " neovim rpc
+call dein#add('ryanoasis/vim-devicons',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ depends: ['ctrlp.vim','lightline.vim'],
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vimdevicons.vim'
+\}) " vim devicons
 " Finish Dein initialization (required)
 
 call dein#end()
@@ -583,8 +589,8 @@ set shiftwidth=4
 " font
 "
 """"""""""""""""""""""""""""""""""
-set guifont=HackGenNerd
-set guifontwide=HackGenNerd
+set guifont=JetBrainsMono\ Nerd\ Font:h30
+set guifontwide=JetBrainsMono\ Nerd\ Font
 """"""""""""""""""""""""""""""""""
 "
 " highlight
