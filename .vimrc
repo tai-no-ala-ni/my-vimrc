@@ -44,8 +44,8 @@ let g:skip_loading_mswin        = 1
 " python host prog
 "
 """""""""""""""""""""""""""""""""
-"function! g:SetPythonHost()
-"if &filetype ==# 'python'
+if &filetype ==# 'python'
+function! g:SetPythonHost()
 if !has('win32')
 	if exists('$VIRTUAL_ENV')
 		let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
@@ -63,11 +63,11 @@ if !has('win32')
 		let g:python3_host_prog = python_path_escaped
 		let g:python_host_prog = python_path_escaped
 endif
-"endif
-"endfunction
+endfunction
+let timer_id = timer_start(1000, function('SetPythonHost'))
+call SetPythonHost()
+endif
 
-"let timer_id = timer_start(1000, function('SetPythonHost'))
-"call SetPythonHost()
 
 
 " Ward off unexpected things that your distro might have made, as
@@ -220,9 +220,16 @@ endif
 if executable('fzf')
 "call dein#add('junegunn/fzf')
 call dein#add('junegunn/fzf', #{
-\ build: 'fzf#install()'
+\ build: 'fzf#install()',
+\ lazy: 1,
+\ on_event: 'VimEnter'
 \ })  " fzf
-call dein#add('junegunn/fzf.vim') " fzf
+call dein#add('junegunn/fzf.vim', #{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ depends: ['fzf'],
+\ hook_post_source: 'source ~/mydotfiles/vim/after/fzf.vim'
+\ })  " fzf
 endif
 if has('nvim')
 "for nvim
@@ -394,9 +401,9 @@ call dein#add('Shougo/neosnippet-snippets',#{
 \ dapends: ['neosnippet.vim'],
 \ on_event: 'VimEnter'
 \})
-call dein#add('evanleck/vim-svelte',#{
-\ on_ft: 'svelte'
-\}) " svelte syntax highlight
+"call dein#add('evanleck/vim-svelte',#{
+"\ on_ft: 'svelte'
+"\}) " svelte syntax highlight
 "call dein#config('vim-svelte', #{
 "\ on_ft: 'svelte'
 "\ }) " svelte syntax highlight
@@ -530,7 +537,8 @@ call dein#add('kana/vim-operator-user',#{
 \}) " user defined operator
 call dein#add('kana/vim-operator-replace',#{
 \ lazy: 1,
-\on_event: 'VimEnter'
+\on_event: 'VimEnter',
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vim-operator.vim'
 \}) " replace operator
 "call dein#add('itchyny/calendar.vim')	" calendar
 call dein#add('junegunn/goyo.vim',#{
@@ -576,8 +584,8 @@ call dein#end()
 autocmd VimEnter * call dein#call_hook('post_source')
 
 " auto upodate
-let g:dein#auto_update = 1
-let g:dein#auto_recache = 'v:true'
+let g:dein#auto_update = 0
+let g:dein#auto_recache = 'v:false'
 let g:dein#auto_remote_plugins = 'v:true'
 
 if has('filetype')
@@ -590,9 +598,9 @@ if has('syntax')
 endif
 
 " Uncomment if you want to install not-installed plugins on startup.
-if dein#check_install()
- call dein#install()
-endif
+"if dein#check_install()
+" call dein#install()
+"endif
 
 """"""""""""""""""""""""""""""""""
 "
