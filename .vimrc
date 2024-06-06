@@ -365,6 +365,15 @@ call dein#add('mattn/vim-lsp-settings',#{
 \ on_event: 'VimEnter',
 \ depends: ['vim-lsp']
 \}) " lsp setting
+call dein#add('preservim/nerdtree', #{
+\ lazy: 1,
+\ on_event: 'VimEnter'
+\}) " nerdtree
+call dein#add('tiagofumo/vim-nerdtree-syntax-highlight',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ hook_post_source:'source ~/mydotfiles/vim/after/vim-nerdtree-syntax-highlight.vim'
+\})
 "call dein#add('shun/ddc-vim-lsp',#{
 "\ lazy: 1,
 "\depends: ['vim-lsp']
@@ -544,13 +553,22 @@ call dein#add('roxma/vim-hug-neovim-rpc', #{
 \ lazy: 1,
 \ on_event: 'VimEnter'
 \}) " neovim rpc
+" Finish Dein initialization (required)
+if has('nvim')
 call dein#add('ryanoasis/vim-devicons',#{
 \ lazy: 1,
 \ on_event: 'VimEnter',
 \ depends: ['ctrlp.vim','lightline.vim'],
 \ hook_post_source: 'source ~/mydotfiles/vim/after/vimdevicons.vim'
 \}) " vim devicons
-" Finish Dein initialization (required)
+else
+call dein#add('ryanoasis/vim-devicons',#{
+\ lazy: 1,
+\ on_event: 'VimEnter',
+\ depends: ['ctrlp.vim','lightline.vim','nerdtree','vim-nerdtree-syntax-highlight'],
+\ hook_post_source: 'source ~/mydotfiles/vim/after/vimdevicons.vim'
+\}) " vim devicons
+endif
 
 call dein#end()
 
