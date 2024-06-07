@@ -87,8 +87,8 @@ call ddc#custom#patch_global('sourceOptions', #{
 	    \ forceCompletionPattern: '\\.|:|->',
 		\ minAutoCompleteLength: 1,
     \ },
-    \ necovim: #{'mark': 'necovim'},
-    \ '_': #{
+    \ necovim: #{mark: 'necovim'},
+    \ _: #{
     \   matchers: ['matcher_head'],
     \   sorters: ['sorter_rank']},
     \ 	converters: ['converter_remove_overlap'],

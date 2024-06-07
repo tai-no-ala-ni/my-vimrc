@@ -584,8 +584,8 @@ call dein#end()
 autocmd VimEnter * call dein#call_hook('post_source')
 
 " auto upodate
-let g:dein#auto_update = 0
-let g:dein#auto_recache = 'v:false'
+let g:dein#auto_update = 1
+let g:dein#auto_recache = 'v:true'
 let g:dein#auto_remote_plugins = 'v:true'
 
 if has('filetype')
