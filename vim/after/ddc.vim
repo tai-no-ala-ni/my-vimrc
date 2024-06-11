@@ -31,7 +31,7 @@ endif
 " sources
 
 if has('nvim')
-call ddc#custom#patch_global('ui', 'native')
+call ddc#custom#patch_global('ui', 'pum')
 call ddc#enable_terminal_completion()
 endif
 
@@ -57,8 +57,7 @@ call ddc#custom#patch_global('sourceOptions', #{
 	    \ dup: v:true,
     \ },
     \ lsp: #{
-	    \ mark: 'nvim-lsp',
-	    \ forceCompletionPattern: '\\.|:|->',
+	    \ mark: 'nvim-lsp'
     \ },
     \ necovim: #{mark: 'necovim'},
 	\ skkeleton: #{
@@ -84,11 +83,10 @@ call ddc#custom#patch_global('sourceOptions', #{
     \ },
     \ lsp: #{
 	    \ mark: 'vim-lsp',
-	    \ forceCompletionPattern: '\\.|:|->',
 		\ minAutoCompleteLength: 1,
     \ },
-    \ necovim: #{'mark': 'necovim'},
-    \ '_': #{
+    \ necovim: #{mark: 'necovim'},
+    \ _: #{
     \   matchers: ['matcher_head'],
     \   sorters: ['sorter_rank']},
     \ 	converters: ['converter_remove_overlap'],
