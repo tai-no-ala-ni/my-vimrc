@@ -319,10 +319,10 @@ call dein#add('romgrk/barbar.nvim', #{
 \hook_post_source: 'luafile ~/mydotfiles/vim/after/barbar.lua',
 \depends: ['nvim-web-devicons','gitsigns']
 \}) " tabline
-call dein#add('nvim-treesitter/nvim-treesitter', #{
-\do: ':TSUpdate',
-\merged: 0
-\}) "treesitter
+"call dein#add('nvim-treesitter/nvim-treesitter', #{
+"\do: ':TSUpdate',
+"\merged: 0
+"\}) "treesitter
 "call dein#add('rcarriga/nvim-notify') " notify
 "call dein#add('MunifTanjim/nui.nvim') " ui
 "call dein#add('folke/noice.nvim') " change view of messages,cmdline,popupmenu
@@ -419,11 +419,11 @@ call dein#add('ekalinin/dockerfile.vim',#{
 \on_ft: 'Dockerfile',
 \ hook_post_source: 'source ~/mydotfiles/vim/after/docker.vim'
 \}) " dockerfile syntax
-call dein#add('github/copilot.vim',#{
-\ lazy: 1,
-\ on_event: 'InsertEnter',
-\ hook_post_source: 'source ~/mydotfiles/vim/after/copilot.vim'
-\}) " copilot
+"call dein#add('github/copilot.vim',#{
+"\ lazy: 1,
+"\ on_event: 'InsertEnter',
+"\ hook_post_source: 'source ~/mydotfiles/vim/after/copilot.vim'
+"\}) " copilot
 call dein#add('wakatime/vim-wakatime',#{
 \ lazy: 1,
 \ on_event: 'VimEnter'
