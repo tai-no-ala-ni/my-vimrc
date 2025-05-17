@@ -4,6 +4,8 @@ local helpers = require("null-ls.helpers")
 -- added by nvim-notify
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
+--local formatting = require("none-ls.formatting")
+--local diagnostics = require("none-ls.diagnostics")
 local on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -52,6 +54,8 @@ local prettier_formatting_source = formatting.prettierd.with({
 --	timeout = 20000,
 --	prefer_local = "node_modules/.bin",
 --})
+
+--local eslint_formatting_source = require("none-ls.formatting.eslint_d")
 
 local lua_source = formatting.stylua.with({ filetypes = { "lua" } })
 
@@ -148,6 +152,8 @@ local vint_lint_diagnostics_source = diagnostics.vint.with({
 local java_formatting_source = formatting.google_java_format.with({
 	filetypes = { "java" },
 })
+local php_formatting_source = formatting.pretty_php
+local php_diagnostics_source = diagnostics.phpcs
 
 local sources = {
 	--eslint_formatting_source,
@@ -168,6 +174,8 @@ local sources = {
 	golangci_lint_diagnostics_source,
 	vint_lint_diagnostics_source,
 	java_formatting_source,
+	php_formatting_source,
+	php_diagnostics_source,
 }
 
 null_ls.setup({
@@ -196,6 +204,9 @@ null_ls.setup({
 		"black",
 		"gofumpt",
 		"goimports",
+		"pretty-php",
+		"intelephense",
+		"phpcs",
 	},
 	debug = true,
 	on_attach = on_attach,
